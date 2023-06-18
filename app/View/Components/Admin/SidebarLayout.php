@@ -8,12 +8,13 @@ use Illuminate\View\Component;
 
 class SidebarLayout extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-    public function __construct()
+    public $menuUtama;
+    public $menuKedua;
+
+    public function __construct($menuUtama,$menuKedua)
     {
-        //
+        $this->menuUtama = $menuUtama;
+        $this->menuKedua = $menuKedua;
     }
 
     /**

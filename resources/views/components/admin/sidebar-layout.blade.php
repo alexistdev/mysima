@@ -5,31 +5,26 @@
             <nav id="menu" class="nav-main" role="navigation">
 
                 <ul class="nav nav-main">
-                    <li>
-                        <a href="layouts-default.html">
+                    <li @if($menuUtama == "dashboard") class="nav-active" @endif>
+                        <a href="{{route('adm.dashboard')}}">
                             <i class="bx bx-home-alt" aria-hidden="true"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-parent">
+                    <li class="nav-parent @if($menuUtama == "master") nav-active  nav-expanded @endif">
                         <a href="#">
-                            <i class="bx bx-cart-alt" aria-hidden="true"></i>
+                            <i class="bx bx-spreadsheet" aria-hidden="true"></i>
                             <span>Master Data</span>
                         </a>
                         <ul class="nav nav-children">
-                            <li>
-                                <a href="ecommerce-dashboard.html">
-                                    Users
+                            <li @if($menuKedua == "users") class="nav-active" @endif>
+                                <a href="{{route('adm.users')}}">
+                                    Data Mahasiswa
                                 </a>
                             </li>
-                            <li>
-                                <a href="ecommerce-products-list.html">
-                                    Data Penyusunan Skripsi [S]
-                                </a>
-                            </li>
-                            <li>
-                                <a href="ecommerce-products-list.html">
-                                    Data Kriteria Penyusunan Skripsi [K]
+                            <li @if($menuKedua == "criteria") class="nav-active" @endif>
+                                <a href="{{route('adm.criteria')}}">
+                                    Kriteria Penyusunan Skripsi [K]
                                 </a>
                             </li>
                             <li>

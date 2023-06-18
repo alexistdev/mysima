@@ -9,10 +9,14 @@ use Illuminate\View\Component;
 class TemplateAdmin extends Component
 {
    public $title;
+   public $menuUtama;
+   public $menuKedua;
 
-    public function __construct($title)
+    public function __construct($title,$menuUtama,$menuKedua)
     {
         $this->title = $title;
+        $this->menuUtama = $menuUtama;
+        $this->menuKedua = $menuKedua;
     }
 
     /**

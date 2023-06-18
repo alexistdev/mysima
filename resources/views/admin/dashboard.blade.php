@@ -1,4 +1,4 @@
-<x-admin.template-admin :title="$judul">
+<x-admin.template-admin :title="$judul" :menu-utama="$menuUtama" :menu-kedua="$menuKedua">
     <section role="main" class="content-body">
         <header class="page-header page-header-left-breadcrumb">
             <div class="right-wrapper">
