@@ -6,13 +6,14 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class TemplateAdmin extends Component
+class SidebarLayout extends Component
 {
-   public $title;
-
-    public function __construct($title)
+    /**
+     * Create a new component instance.
+     */
+    public function __construct()
     {
-        $this->title = $title;
+        //
     }
 
     /**
@@ -20,6 +21,6 @@ class TemplateAdmin extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.admin.template-admin');
+        return view('components.admin.sidebar-layout');
     }
 }

@@ -17,6 +17,7 @@ class DashboardController extends Controller
             'judul' => "Dashboard Administrator | MySima",
             'menuUtama' => 'dashboard',
             'menuKedua' => 'dashboard',
+
         ));
     }
 }
