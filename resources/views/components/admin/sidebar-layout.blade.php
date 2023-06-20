@@ -17,6 +17,11 @@
                             <span>Master Data</span>
                         </a>
                         <ul class="nav nav-children">
+                            <li @if($menuKedua == "mapel") class="nav-active" @endif>
+                                <a href="{{route('adm.mapel')}}">
+                                    Data Mata Pelajaran
+                                </a>
+                            </li>
                             <li @if($menuKedua == "users") class="nav-active" @endif>
                                 <a href="{{route('adm.users')}}">
                                     Data Mahasiswa

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('mata_kuliahs', function (Blueprint $table) {
             $table->id();
+            $table->string('code');
             $table->string('name');
             $table->integer('sks')->default(0);
             $table->tinyInteger('priority')->default(0);

@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class MataKuliah extends Model
 {
     use HasFactory;
-    protected $guarded = ['name','sks','priority'];
+    protected $guarded = ['code','name','sks'];
 }
