@@ -39,7 +39,7 @@
                                         <th scope="col" class="text-center">#</th>
                                         <th scope="col" class="text-center">KODE</th>
                                         <th scope="col" class="text-center">NAMA</th>
-                                        <th scope="col" class="text-center">DESKRIPSI</th>
+                                        <th scope="col" class="text-center">SKS</th>
                                         <th scope="col" class="text-center">ACTION</th>
                                     </tr>
                                     </thead>

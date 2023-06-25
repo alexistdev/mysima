@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             CriteriaSeeder::class,
+            DosenSeeder::class,
         ]);
     }
 }
