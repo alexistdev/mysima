@@ -25,7 +25,7 @@
                 <section class="card">
                     <header class="card-header">
                         <div class="card-actions">
-                           <button class="btn btn-sm btn-primary"><i class='bx bx-duplicate' ></i></button>
+                            <a href="{{route('adm.dosen.add')}}"><button class="btn btn-sm btn-primary"><i class='bx bx-duplicate' ></i></button></a>
                         </div>
 
                         <h2 class="card-title">Data Mahasiswa</h2>

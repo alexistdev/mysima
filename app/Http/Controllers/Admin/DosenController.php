@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\DosenRequest;
 use App\Http\Traits\AdminTrait;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -38,6 +39,15 @@ class DosenController extends Controller
 
     public function create()
     {
+        return view('admin.adddosen', array(
+            'judul' => "Dashboard Administrator | MySima",
+            'menuUtama' => 'master',
+            'menuKedua' => 'dosen',
+        ));
+    }
 
+    public function store(DosenRequest $request)
+    {
+        $request->validated();
     }
 }

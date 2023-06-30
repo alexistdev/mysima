@@ -28,6 +28,9 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::get('/admin/dashboard', [DashAdmin::class, 'index'])->name('adm.dashboard');
         Route::get('/admin/users', [UserAdmin::class, 'index'])->name('adm.users');
         Route::get('/admin/dosen', [DosenAdmin::class, 'index'])->name('adm.dosen');
+        Route::get('/admin/dosen/add', [DosenAdmin::class, 'create'])->name('adm.dosen.add');
+        Route::post('/admin/dosen', [DosenAdmin::class, 'store'])->name('adm.dosen.save');
+
         Route::get('/admin/criteria', [CriteriaAdmin::class, 'index'])->name('adm.criteria');
         Route::get('/admin/mapel', [MapelAdmin::class, 'index'])->name('adm.mapel');
         Route::post('/admin/mapel', [MapelAdmin::class, 'store'])->name('adm.mapel.save');
