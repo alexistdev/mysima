@@ -19,7 +19,7 @@ class MapelServiceServiceImplementation implements MapelService
                     return $request->created_at->format('d-m-Y H:i:s');
                 })
                 ->addColumn('action', function ($row) {
-                    $btn = "<button class=\"btn btn-sm btn-primary ml-1 open-edit\" data-id=\"$row->id\" data-name=\"$row->name\" data-email=\"$row->email\" data-toggle=\"modal\" data-target=\"#modalEdit\"> Edit</button>";
+                    $btn = "<button class=\"btn btn-sm btn-primary ml-1 open-edit\" data-id=\"$row->id\" data-sks=\"$row->sks\" data-name=\"$row->name\" data-code=\"$row->code\" data-bs-toggle=\"modal\" data-bs-target=\"#modalEdit\"> Edit</button>";
                     $btn = $btn . "<button class=\"btn btn-sm btn-danger ml-1 open-hapus\" data-id=\"$row->id\" data-toggle=\"modal\" data-target=\"#modalHapus\"> Hapus</button>";
                     return $btn;
                 })
@@ -35,4 +35,16 @@ class MapelServiceServiceImplementation implements MapelService
         $mapel->sks = $request->sks;
         $mapel->save();
     }
+
+    public function update(MapelRequest $request): void
+    {
+       $mapel = MataKuliah::findOrFail($request->mapel_id);
+       $mapel->where('id',$request->mapel_id)->update([
+          'name' => $request->name,
+          'code' => $request->code,
+          'sks' => $request->sks
+       ]);
+    }
+
+
 }

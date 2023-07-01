@@ -49,4 +49,18 @@ class MataPelajaran extends Controller
             return redirect(route('adm.mapel'))->withErrors(['error' => $e->getMessage()]);
         }
     }
+
+    public function update(MapelRequest $request)
+    {
+        $request->validated();
+        DB::beginTransaction();
+        try{
+            $this->mapelService->update($request);
+            DB::commit();
+            return redirect(route('adm.mapel'))->with(['success' => "Data Mata Kuliah Berhasil diperbaharui!"]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect(route('adm.mapel'))->withErrors(['error' => $e->getMessage()]);
+        }
+    }
 }

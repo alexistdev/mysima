@@ -34,6 +34,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::get('/admin/criteria', [CriteriaAdmin::class, 'index'])->name('adm.criteria');
         Route::get('/admin/mapel', [MapelAdmin::class, 'index'])->name('adm.mapel');
         Route::post('/admin/mapel', [MapelAdmin::class, 'store'])->name('adm.mapel.save');
+        Route::patch('/admin/mapel', [MapelAdmin::class, 'update'])->name('adm.mapel.update');
     });
 });
 

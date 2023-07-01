@@ -26,7 +26,7 @@
                     <header class="card-header">
                         <div class="card-actions">
                             <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal"><i class='bx bx-duplicate'></i></button>
+                                    data-bs-target="#modalTambah"><i class='bx bx-duplicate'></i></button>
                         </div>
                         <h2 class="card-title">Mata Pelajaran</h2>
                     </header>
@@ -55,8 +55,8 @@
         </div>
         <!-- end: page -->
     </section>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- START : Modal TAMBAH -->
+    <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -133,6 +133,93 @@
             </div>
         </div>
     </div>
+        <!-- END : Modal TAMBAH -->
+
+        <!-- START : Modal EDIT -->
+    <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{route('adm.mapel.update')}}" method="post">
+                    @csrf
+                    @method('patch')
+                    <div class="modal-body">
+                        <!-- Start: Code -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="hidden" id="mapel_id" name="mapel_id" value="{{old('mapel_id')}}">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <label for="codeEdit"
+                                    @class(["form-label","errorLabel",($errors->has('code'))? "text-danger":""]) >KODE
+                                    MATA KULIAH
+                                </label>
+                                <input type="text" name="code" maxlength="125"
+                                       @class(["form-control","errorInput",($errors->has('code'))? "is-invalid":""]) value="{{old('code')}}"
+                                       id="codeEdit" placeholder="Kode Mata Kuliah">
+                                @if($errors->has('code'))
+                                    <span
+                                        class="text-danger errorMessage">{{$errors->first('code')}}</span>
+                                @endif
+                            </div>
+                        </div>
+                        <!-- End: Code -->
+
+
+                        <!-- Start: Name -->
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <label for="nameEdit"
+                                    @class(["form-label","errorLabel",($errors->has('name'))? "text-danger":""]) >NAMA
+                                    MATA KULIAH
+                                </label>
+                                <input type="text" name="name" maxlength="125"
+                                       @class(["form-control","errorInput",($errors->has('name'))? "is-invalid":""]) value="{{old('name')}}"
+                                       id="nameEdit" placeholder="Nama Mata Kuliah">
+                                @error('name')
+                                <span
+                                    class="text-danger errorMessage">{{$errors->first('name')}}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <!-- End: Name -->
+
+                        <!-- Start: SKS -->
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <label for="sksEdit"
+                                    @class(["form-label","errorLabel",($errors->has('sks'))? "text-danger":""]) >JUMLAH
+                                    SKS
+                                </label>
+                                <select name="sks" id="sksEdit" @class(["form-control","errorInput",($errors->has('sks'))? "is-invalid":""]) >
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                                @if($errors->has('sks'))
+                                    <span
+                                        class="text-danger errorMessage">{{$errors->first('sks')}}</span>
+                                @endif
+                            </div>
+                        </div>
+                        <!-- End: SKS -->
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+        <!-- END : Modal EDIT -->
 
     @push('customJS')
         <!-- Specific Page Vendor -->
@@ -141,6 +228,34 @@
         <script>
             $(document).ready(function () {
                 let base_url = "{{route('adm.mapel')}}";
+
+                function openModal(modal) {
+                    modal.modal();
+                }
+
+                /** saat tombol edit di klik */
+                $(document).on("click", ".open-edit", function (e) {
+                    e.preventDefault();
+                    let fid = $(this).data('id');
+                    let fsks = $(this).data('sks');
+                    let fcode = $(this).data('code');
+                    let fname = $(this).data('name');
+                    $('#mapel_id').val(fid);
+                    $('#codeEdit').val(fcode);
+                    $('#nameEdit').val(fname);
+                    $('#sksEdit').val(fsks);
+                })
+
+                $('.modal').on('hidden.bs.modal', function (e) {
+                    e.preventDefault();
+                    let pesanError = $('.errorMessage');
+                    let errorInput = $('.errorInput');
+                    let errorLabel = $('.errorLabel');
+                    pesanError.html("");
+                    errorInput.removeClass('is-invalid');
+                    errorLabel.removeClass('text-danger');
+                })
+
                 $('#tabel1').DataTable({
                     responsive: true,
                     processing: true,
@@ -168,6 +283,7 @@
                         {data: 'code', class: 'text-center'},
                         {data: 'name', class: 'text-left'},
                         {data: 'sks', class: 'text-center', orderable: false},
+                        {data: 'action', class: 'text-center', orderable: false},
                     ],
                     "bDestroy": true
                 });
