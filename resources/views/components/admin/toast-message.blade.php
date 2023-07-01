@@ -23,4 +23,16 @@
             });
         </script>
     @endif
+
+    @if ($message = Session::get('hapus'))
+        <script>
+            let message = '{!! $message !!}';
+            new PNotify({
+                title: 'Dihapus!',
+                text: message,
+                type: 'warning',
+                shadow: true
+            });
+        </script>
+    @endif
 </div>

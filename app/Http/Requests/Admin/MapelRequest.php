@@ -21,7 +21,7 @@ class MapelRequest extends FormRequest
     public function rules(): array
     {
         if (in_array($this->method(), ['DELETE'])) {
-            $rules['user_id'] =  'required|numeric';
+            $rules['mapel_id'] =  'required|numeric';
         } else if(in_array($this->method(),['POST'])){
             $rules['code'] =  'required|max:255';
             $rules['name'] =  'required|max:255';
@@ -39,10 +39,10 @@ class MapelRequest extends FormRequest
     {
 
         if (in_array($this->method(), ['DELETE'])) {
-//            $messages = [
-//                'nik.required' => "ID tidak ditemukan silahkan refresh halaman, atau login ulang!",
-//                'nik.numeric' => "ID tidak ditemukan silahkan refresh halaman, atau login ulang!",
-//            ];
+            $messages = [
+                'mapel_id.required' => "ID tidak ditemukan silahkan refresh halaman, atau login ulang!",
+                'mapel_id.numeric' => "ID tidak ditemukan silahkan refresh halaman, atau login ulang!",
+            ];
         } else if(in_array($this->method(),['POST'])){
             $messages = [
                 'code.required' => "KODE MATA KULIAH harus diisi !",

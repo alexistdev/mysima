@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\MapelRequest;
+use App\Models\MataKuliah;
 use Exception;
 use App\Service\Admin\MapelService;
 use Illuminate\Http\Request;
@@ -58,6 +59,19 @@ class MataPelajaran extends Controller
             $this->mapelService->update($request);
             DB::commit();
             return redirect(route('adm.mapel'))->with(['success' => "Data Mata Kuliah Berhasil diperbaharui!"]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect(route('adm.mapel'))->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function destroy(MapelRequest $request)
+    {
+        $request->validated();
+        try{
+            MataKuliah::findOrFail($request->mapel_id);
+            $this->mapelService->delete($request);
+            return redirect(route('adm.mapel'))->with(['hapus' => "Data berhasil dihapus!"]);
         } catch (Exception $e) {
             DB::rollback();
             return redirect(route('adm.mapel'))->withErrors(['error' => $e->getMessage()]);

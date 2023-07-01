@@ -110,7 +110,8 @@
                                     @class(["form-label","errorLabel",($errors->has('sks'))? "text-danger":""]) >JUMLAH
                                     SKS
                                 </label>
-                                <select name="sks" id="sks" @class(["form-control","errorInput",($errors->has('sks'))? "is-invalid":""]) >
+                                <select name="sks"
+                                        id="sks" @class(["form-control","errorInput",($errors->has('sks'))? "is-invalid":""]) >
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                     <option value="4">4</option>
@@ -133,9 +134,9 @@
             </div>
         </div>
     </div>
-        <!-- END : Modal TAMBAH -->
+    <!-- END : Modal TAMBAH -->
 
-        <!-- START : Modal EDIT -->
+    <!-- START : Modal EDIT -->
     <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -196,7 +197,8 @@
                                     @class(["form-label","errorLabel",($errors->has('sks'))? "text-danger":""]) >JUMLAH
                                     SKS
                                 </label>
-                                <select name="sks" id="sksEdit" @class(["form-control","errorInput",($errors->has('sks'))? "is-invalid":""]) >
+                                <select name="sks"
+                                        id="sksEdit" @class(["form-control","errorInput",($errors->has('sks'))? "is-invalid":""]) >
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                     <option value="4">4</option>
@@ -219,19 +221,51 @@
             </div>
         </div>
     </div>
-        <!-- END : Modal EDIT -->
+    <!-- END : Modal EDIT -->
+
+        <!-- START : Modal HAPUS -->
+        <div class="modal fade" id="modalHapus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{route('adm.mapel.delete')}}" method="post">
+                        @csrf
+                        @method('delete')
+                        <div class="modal-body">
+                            <!-- Start: Code -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="hidden" id="mapelhapus_id" name="mapel_id" value="{{old('mapel_id')}}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Apakah anda ingin menghapus data ini ?
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-danger">Hapus</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- END : Modal HAPUS -->
 
     @push('customJS')
         <!-- Specific Page Vendor -->
         <script src="{{asset('template/vendor/pnotify/pnotify.custom.js')}}"></script>
-        <x-admin.toast-message />
+        <x-admin.toast-message/>
         <script>
             $(document).ready(function () {
                 let base_url = "{{route('adm.mapel')}}";
 
-                function openModal(modal) {
-                    modal.modal();
-                }
+
 
                 /** saat tombol edit di klik */
                 $(document).on("click", ".open-edit", function (e) {
@@ -244,6 +278,13 @@
                     $('#codeEdit').val(fcode);
                     $('#nameEdit').val(fname);
                     $('#sksEdit').val(fsks);
+                })
+
+                /** saat tombol hapus di klik */
+                $(document).on("click", ".open-hapus", function (e) {
+                    e.preventDefault();
+                    let fid = $(this).data('id');
+                    $('#mapelhapus_id').val(fid);
                 })
 
                 $('.modal').on('hidden.bs.modal', function (e) {

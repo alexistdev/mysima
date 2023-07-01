@@ -10,4 +10,5 @@ interface MapelService
     public function index(Request $request);
     public function save(MapelRequest $request):void;
     public function update(MapelRequest $request):void;
+    public function delete(MapelRequest $request):void;
 }
