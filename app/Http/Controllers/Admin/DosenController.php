@@ -92,4 +92,17 @@ class DosenController extends Controller
         }
 
     }
+
+    public function destroy(DosenRequest $request)
+    {
+        $request->validated();
+        try{
+            User::findOrFail($request->user_id);
+            $this->dosenService->delete($request);
+            return redirect(route('adm.dosen'))->with(['hapus' => "Data berhasil dihapus!"]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect(route('adm.dosen'))->withErrors(['error' => $e->getMessage()]);
+        }
+    }
 }

@@ -58,12 +58,53 @@
         </div>
         <!-- end: page -->
     </section>
+
+        <!-- START : Modal HAPUS -->
+        <div class="modal fade" id="modalHapus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{route('adm.dosen.delete')}}" method="post">
+                        @csrf
+                        @method('delete')
+                        <div class="modal-body">
+                            <!-- Start: Code -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="hidden" id="hapususer_id" name="user_id" value="{{old('user_id')}}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Apakah anda ingin menghapus data ini ?
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-danger">Hapus</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- END : Modal HAPUS -->
     @push('customJS')
         <script src="{{asset('template/vendor/pnotify/pnotify.custom.js')}}"></script>
         <x-admin.toast-message/>
         <script>
             $(document).ready(function () {
                 let base_url = "{{route('adm.dosen')}}";
+                /** saat tombol hapus di klik */
+                $(document).on("click", ".open-hapus", function (e) {
+                    e.preventDefault();
+                    let fid = $(this).data('id');
+                    $('#hapususer_id').val(fid);
+                })
+
                 $('#tabel1').DataTable({
                     responsive: true,
                     processing: true,

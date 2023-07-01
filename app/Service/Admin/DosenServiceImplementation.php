@@ -25,7 +25,7 @@ class DosenServiceImplementation implements DosenService
             ->addColumn('action', function ($row) {
                 $url = route('adm.dosen.edit', $row->id);
                 $btn = "<a href=\"$url\"><button class=\"btn btn-sm btn-primary ml-1\" > Edit</button></a>";
-                $btn = $btn . "<button class=\"btn btn-sm btn-danger ml-1 open-hapus\" data-id=\"$row->id\" data-toggle=\"modal\" data-target=\"#modalHapus\"> Hapus</button>";
+                $btn = $btn . "<button class=\"btn btn-sm btn-danger ml-1 open-hapus\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> Hapus</button>";
                 return $btn;
             })
             ->rawColumns(['action'])
@@ -66,5 +66,11 @@ class DosenServiceImplementation implements DosenService
             'alamat' => $request->alamat
         ]);
     }
+
+    public function delete(DosenRequest $request): void
+    {
+        User::where('id',$request->user_id)->delete();
+    }
+
 
 }

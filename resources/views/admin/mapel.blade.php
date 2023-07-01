@@ -223,39 +223,39 @@
     </div>
     <!-- END : Modal EDIT -->
 
-        <!-- START : Modal HAPUS -->
-        <div class="modal fade" id="modalHapus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form action="{{route('adm.mapel.delete')}}" method="post">
-                        @csrf
-                        @method('delete')
-                        <div class="modal-body">
-                            <!-- Start: Code -->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <input type="hidden" id="mapelhapus_id" name="mapel_id" value="{{old('mapel_id')}}">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    Apakah anda ingin menghapus data ini ?
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-danger">Hapus</button>
-                        </div>
-                    </form>
+    <!-- START : Modal HAPUS -->
+    <div class="modal fade" id="modalHapus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <form action="{{route('adm.mapel.delete')}}" method="post">
+                    @csrf
+                    @method('delete')
+                    <div class="modal-body">
+                        <!-- Start: Code -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="hidden" id="mapelhapus_id" name="mapel_id" value="{{old('mapel_id')}}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                Apakah anda ingin menghapus data ini ?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </div>
+                </form>
             </div>
         </div>
-        <!-- END : Modal HAPUS -->
+    </div>
+    <!-- END : Modal HAPUS -->
 
     @push('customJS')
         <!-- Specific Page Vendor -->
@@ -264,7 +264,6 @@
         <script>
             $(document).ready(function () {
                 let base_url = "{{route('adm.mapel')}}";
-
 
 
                 /** saat tombol edit di klik */

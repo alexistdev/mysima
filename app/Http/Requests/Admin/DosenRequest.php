@@ -22,7 +22,7 @@ class DosenRequest extends FormRequest
     public function rules(): array
     {
         if (in_array($this->method(), ['DELETE'])) {
-//            $rules['user_id'] =  'required|numeric';
+            $rules['user_id'] =  'required|numeric';
         } else if(in_array($this->method(),['POST'])){
             $rules['nik'] =  'required|max:255';
             $rules['email'] = [
@@ -50,10 +50,10 @@ class DosenRequest extends FormRequest
     {
 
         if (in_array($this->method(), ['DELETE'])) {
-//            $messages = [
-//                'nik.required' => "ID tidak ditemukan silahkan refresh halaman, atau login ulang!",
-//                'nik.numeric' => "ID tidak ditemukan silahkan refresh halaman, atau login ulang!",
-//            ];
+            $messages = [
+                'user_id.required' => "ID tidak ditemukan silahkan refresh halaman, atau login ulang!",
+                'user_id.numeric' => "ID tidak ditemukan silahkan refresh halaman, atau login ulang!",
+            ];
         } else if(in_array($this->method(),['POST'])){
             $messages = [
                 'nik.required' => "NIK harus diisi !",
