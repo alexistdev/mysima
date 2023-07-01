@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Service\Admin\DosenService;
+use App\Service\Admin\DosenServiceImplementation;
 use App\Service\Admin\MapelService;
 use App\Service\Admin\MapelServiceServiceImplementation;
 use Illuminate\Support\ServiceProvider;
@@ -9,7 +11,8 @@ use Illuminate\Support\ServiceProvider;
 class AppServiceProvider extends ServiceProvider
 {
     public $bindings = [
-        MapelService::class => MapelServiceServiceImplementation::class
+        MapelService::class => MapelServiceServiceImplementation::class,
+        DosenService::class => DosenServiceImplementation::class
     ];
 
     public function register(): void
