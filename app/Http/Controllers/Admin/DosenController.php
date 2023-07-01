@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DosenRequest;
+use App\Models\Dosen;
+use App\Models\User;
 use App\Service\Admin\DosenService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,6 +45,37 @@ class DosenController extends Controller
             'menuUtama' => 'master',
             'menuKedua' => 'dosen',
         ));
+    }
+
+    public function edit($id)
+    {
+        $user = User::with('dosen')->findOrFail($id);
+        if($user->dosen != null){
+            return view('admin.editdosen', array(
+                'judul' => "Dashboard Administrator | MySima",
+                'menuUtama' => 'master',
+                'menuKedua' => 'dosen',
+                'dataDosen' => $user->dosen,
+            ));
+        }
+        abort('404', 'NOT FOUND');
+    }
+
+    public function update(DosenRequest $request)
+    {
+        $request->validated();
+
+            DB::beginTransaction();
+            try{
+                $this->dosenService->update($request);
+                DB::commit();
+                return redirect(route('adm.dosen.edit',$request->user_id))->with(['hapus' => "Data Dosen Berhasil diperbaharui!"]);
+            } catch (Exception $e) {
+                DB::rollback();
+                echo $e->getMessage();
+//                return redirect(route('adm.dosen'))->withErrors(['error' => $e->getMessage()]);
+            }
+
     }
 
     public function store(DosenRequest $request)

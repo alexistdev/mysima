@@ -29,7 +29,9 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::get('/admin/users', [UserAdmin::class, 'index'])->name('adm.users');
         Route::get('/admin/dosen', [DosenAdmin::class, 'index'])->name('adm.dosen');
         Route::get('/admin/dosen/add', [DosenAdmin::class, 'create'])->name('adm.dosen.add');
+        Route::get('/admin/dosen/{id}', [DosenAdmin::class, 'edit'])->name('adm.dosen.edit');
         Route::post('/admin/dosen', [DosenAdmin::class, 'store'])->name('adm.dosen.save');
+        Route::patch('/admin/dosen', [DosenAdmin::class, 'update'])->name('adm.dosen.update');
 
         Route::get('/admin/criteria', [CriteriaAdmin::class, 'index'])->name('adm.criteria');
         Route::get('/admin/mapel', [MapelAdmin::class, 'index'])->name('adm.mapel');

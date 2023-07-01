@@ -10,19 +10,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\DataTables;
+use function PHPUnit\Framework\isEmpty;
 
 class DosenServiceImplementation implements DosenService
 {
     public function index(Request $request)
     {
-        $user = User::where('role_id', "2")->get();
+        $user = User::with('dosen')->where('role_id', "2")->get();
         return DataTables::of($user)
             ->addIndexColumn()
             ->editColumn('created_at', function ($request) {
                 return $request->created_at->format('d-m-Y H:i:s');
             })
             ->addColumn('action', function ($row) {
-                $btn = "<button class=\"btn btn-sm btn-primary ml-1 open-edit\" data-id=\"$row->id\" data-name=\"$row->name\" data-email=\"$row->email\" data-toggle=\"modal\" data-target=\"#modalEdit\"> Edit</button>";
+                $url = route('adm.dosen.edit', $row->id);
+                $btn = "<a href=\"$url\"><button class=\"btn btn-sm btn-primary ml-1\" > Edit</button></a>";
                 $btn = $btn . "<button class=\"btn btn-sm btn-danger ml-1 open-hapus\" data-id=\"$row->id\" data-toggle=\"modal\" data-target=\"#modalHapus\"> Hapus</button>";
                 return $btn;
             })
@@ -46,6 +48,23 @@ class DosenServiceImplementation implements DosenService
         $dosen->phone = $request->phone;
         $dosen->alamat = $request->alamat;
         $dosen->save();
+    }
+
+    public function update(DosenRequest $request): void
+    {
+        $dataArray = [
+            'name' => $request->name,
+            'email' => $request->email,
+        ];
+        if (!is_null($request->password)) {
+            $dataArray['password'] = Hash::make($request->password);
+        }
+        User::where('id', $request->user_id)->update($dataArray);
+        Dosen::where('user_id', $request->user_id)->update([
+            'nik'=> $request->nik,
+            'phone'=> $request->phone,
+            'alamat' => $request->alamat
+        ]);
     }
 
 }

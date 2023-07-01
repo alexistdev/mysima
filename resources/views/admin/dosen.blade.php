@@ -1,6 +1,7 @@
 <x-admin.template-admin :title="$judul" :menu-utama="$menuUtama" :menu-kedua="$menuKedua">
     @push('cssCustom')
-        <link rel="stylesheet" href="{{asset('template/vendor/datatables/media/css/dataTables.bootstrap5.css')}}" />
+        <link rel="stylesheet" href="{{asset('template/vendor/datatables/media/css/dataTables.bootstrap5.css')}}"/>
+        <link rel="stylesheet" href="{{asset('template/vendor/pnotify/pnotify.custom.css')}}"/>
     @endpush
     <section role="main" class="content-body">
         <header class="page-header page-header-left-breadcrumb">
@@ -25,7 +26,9 @@
                 <section class="card">
                     <header class="card-header">
                         <div class="card-actions">
-                            <a href="{{route('adm.dosen.add')}}"><button class="btn btn-sm btn-primary"><i class='bx bx-duplicate' ></i></button></a>
+                            <a href="{{route('adm.dosen.add')}}">
+                                <button class="btn btn-sm btn-primary"><i class='bx bx-duplicate'></i></button>
+                            </a>
                         </div>
 
                         <h2 class="card-title">Data Mahasiswa</h2>
@@ -56,7 +59,8 @@
         <!-- end: page -->
     </section>
     @push('customJS')
-
+        <script src="{{asset('template/vendor/pnotify/pnotify.custom.js')}}"></script>
+        <x-admin.toast-message/>
         <script>
             $(document).ready(function () {
                 let base_url = "{{route('adm.dosen')}}";

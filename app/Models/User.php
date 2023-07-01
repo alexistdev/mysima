@@ -32,6 +32,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function dosen()
+    {
+        return $this->hasOne(Dosen::class);
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class);
