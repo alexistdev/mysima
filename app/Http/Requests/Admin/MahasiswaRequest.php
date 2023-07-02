@@ -56,7 +56,7 @@ class MahasiswaRequest extends FormRequest
             ];
         } else if(in_array($this->method(),['POST'])){
             $messages = [
-                'nim.required' => "NIK harus diisi !",
+                'nim.required' => "NIM harus diisi !",
                 'nim.max' => "Panjang karakter maksimal 255 karakter !",
                 'name.required' => "NAMA LENGKAP harus diisi !",
                 'name.max' => "Panjang karakter maksimal 255 karakter !",

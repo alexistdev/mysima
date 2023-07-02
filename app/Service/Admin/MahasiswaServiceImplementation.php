@@ -22,7 +22,7 @@ class MahasiswaServiceImplementation implements MahasiswaService
                 return $request->created_at->format('d-m-Y H:i:s');
             })
             ->addColumn('action', function ($row) {
-                $url = route('adm.dosen.edit', $row->id);
+                $url = route('adm.mahasiswa.edit', $row->id);
                 $btn = "<a href=\"$url\"><button class=\"btn btn-sm btn-primary ml-1\" > Edit</button></a>";
                 $btn = $btn . "<button class=\"btn btn-sm btn-danger ml-1 open-hapus\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> Hapus</button>";
                 return $btn;
@@ -47,6 +47,23 @@ class MahasiswaServiceImplementation implements MahasiswaService
         $mhs->phone = $request->phone;
         $mhs->alamat = $request->alamat;
         $mhs->save();
+    }
+
+    public function update(MahasiswaRequest $request): void
+    {
+        $dataArray = [
+            'name' => $request->name,
+            'email' => $request->email,
+        ];
+        if (!is_null($request->password)) {
+            $dataArray['password'] = Hash::make($request->password);
+        }
+        User::where('id', $request->user_id)->update($dataArray);
+        Mahasiswa::where('user_id', $request->user_id)->update([
+            'nim'=> $request->nim,
+            'phone'=> $request->phone,
+            'alamat' => $request->alamat
+        ]);
     }
 
 

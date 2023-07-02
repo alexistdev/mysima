@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\DosenRequest;
 use App\Http\Requests\Admin\MahasiswaRequest;
+use App\Models\User;
 use Exception;
 use App\Service\Admin\MahasiswaService;
 use Illuminate\Http\Request;
@@ -55,8 +57,35 @@ class UserController extends Controller
             return redirect(route('adm.mahasiswa'))->with(['success' => "Data Mahasiswa Berhasil ditambahkan!"]);
         } catch (Exception $e) {
             DB::rollback();
-//            return redirect(route('adm.mahasiswa'))->withErrors(['error' => $e->getMessage()]);
-            echo $e->getMessage();
+            return redirect(route('adm.mahasiswa'))->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function edit($id)
+    {
+        $user = User::with('mahasiswa')->findOrFail($id);
+        if($user->mahasiswa != null){
+            return view('admin.editmahasiswa', array(
+                'judul' => "Dashboard Administrator | MySima",
+                'menuUtama' => 'master',
+                'menuKedua' => 'mahasiswa',
+                'dataMahasiswa' => $user,
+            ));
+        }
+        abort('404', 'NOT FOUND');
+    }
+
+    public function update(MahasiswaRequest $request)
+    {
+        $request->validated();
+        DB::beginTransaction();
+        try {
+            $this->mahasiswaService->update($request);
+            DB::commit();
+            return redirect(route('adm.mahasiswa.edit', $request->user_id))->with(['hapus' => "Data Mahasiswa Berhasil diperbaharui!"]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect(route('adm.mahasiswa'))->withErrors(['error' => $e->getMessage()]);
         }
     }
 }

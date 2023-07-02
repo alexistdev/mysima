@@ -50,7 +50,7 @@ class DosenController extends Controller
     public function edit($id)
     {
         $user = User::with('dosen')->findOrFail($id);
-        if($user->dosen != null){
+        if ($user->dosen != null) {
             return view('admin.editdosen', array(
                 'judul' => "Dashboard Administrator | MySima",
                 'menuUtama' => 'master',
@@ -64,25 +64,22 @@ class DosenController extends Controller
     public function update(DosenRequest $request)
     {
         $request->validated();
-
-            DB::beginTransaction();
-            try{
-                $this->dosenService->update($request);
-                DB::commit();
-                return redirect(route('adm.dosen.edit',$request->user_id))->with(['hapus' => "Data Dosen Berhasil diperbaharui!"]);
-            } catch (Exception $e) {
-                DB::rollback();
-                echo $e->getMessage();
-//                return redirect(route('adm.dosen'))->withErrors(['error' => $e->getMessage()]);
-            }
-
+        DB::beginTransaction();
+        try {
+            $this->dosenService->update($request);
+            DB::commit();
+            return redirect(route('adm.dosen.edit', $request->user_id))->with(['hapus' => "Data Dosen Berhasil diperbaharui!"]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect(route('adm.dosen'))->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     public function store(DosenRequest $request)
     {
         $request->validated();
         DB::beginTransaction();
-        try{
+        try {
             $this->dosenService->save($request);
             DB::commit();
             return redirect(route('adm.dosen'))->with(['success' => "Data Dosen Berhasil ditambahkan!"]);
@@ -96,7 +93,7 @@ class DosenController extends Controller
     public function destroy(DosenRequest $request)
     {
         $request->validated();
-        try{
+        try {
             User::findOrFail($request->user_id);
             $this->dosenService->delete($request);
             return redirect(route('adm.dosen'))->with(['hapus' => "Data berhasil dihapus!"]);
