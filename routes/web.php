@@ -8,6 +8,9 @@ CriteriaController as CriteriaAdmin,
 MataPelajaran as MapelAdmin,
 DosenController as DosenAdmin};
 
+use App\Http\Controllers\Dosen\{DashboardController as DashDosen,
+InputNilaiController as NilaiDosen};
+
 
 
 Route::get('/', function () {
@@ -18,11 +21,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-//Route::middleware('auth')->group(function () {
-////    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-////    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-////    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-//});
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     Route::group(['roles' => 'admin'], function () {
         Route::get('/admin/dashboard', [DashAdmin::class, 'index'])->name('adm.dashboard');
@@ -39,6 +42,11 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::post('/admin/mapel', [MapelAdmin::class, 'store'])->name('adm.mapel.save');
         Route::patch('/admin/mapel', [MapelAdmin::class, 'update'])->name('adm.mapel.update');
         Route::delete('/admin/mapel', [MapelAdmin::class, 'destroy'])->name('adm.mapel.delete');
+    });
+
+    Route::group(['roles' => 'dosen'], function () {
+        Route::get('/staff/dashboard', [DashDosen::class, 'index'])->name('dosen.dashboard');
+        Route::get('/staff/nilai', [NilaiDosen::class, 'index'])->name('dosen.nilai');
     });
 });
 
