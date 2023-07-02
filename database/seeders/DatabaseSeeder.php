@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CriteriaSeeder::class,
             DosenSeeder::class,
+            MahasiswaSeeder::class
         ]);
     }
 }

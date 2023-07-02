@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
         $user = [
             array('role_id' => '1','name' => 'admin',  'email' => 'admin@gmail.com','password' => Hash::make('1234'),'created_at' => $date,'updated_at' => $date),
             array('role_id' => '2','name' => 'dosen',  'email' => 'dosen@gmail.com','password' => Hash::make('1234'),'created_at' => $date,'updated_at' => $date),
-            array('role_id' => '3','name' => 'user',  'email' => 'user@gmail.com','password' => Hash::make('1234'),'created_at' => $date,'updated_at' => $date),
+            array('role_id' => '3','name' => 'mahasiswa',  'email' => 'mahasiswa@gmail.com','password' => Hash::make('1234'),'created_at' => $date,'updated_at' => $date),
             ];
         User::insert($user);
     }

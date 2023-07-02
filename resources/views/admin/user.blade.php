@@ -25,7 +25,7 @@
                 <section class="card">
                     <header class="card-header">
                         <div class="card-actions">
-                           <button class="btn btn-sm btn-primary"><i class='bx bx-duplicate' ></i></button>
+                            <a href="{{route('adm.mahasiswa.add')}}"><button class="btn btn-sm btn-primary"><i class='bx bx-duplicate' ></i></button></a>
                         </div>
 
                         <h2 class="card-title">Data Mahasiswa</h2>
@@ -59,7 +59,7 @@
 
         <script>
             $(document).ready(function () {
-                let base_url = "{{route('adm.users')}}";
+                let base_url = "{{route('adm.mahasiswa')}}";
                 $('#tabel1').DataTable({
                     responsive: true,
                     processing: true,
@@ -84,9 +84,9 @@
                                 return meta.row + meta.settings._iDisplayStart + 1; //auto increment
                             }
                         },
+                        {data: 'mahasiswa.nim', class: 'text-center'},
                         {data: 'name', class: 'text-center'},
                         {data: 'email', class: 'text-center'},
-                        {data: 'created_at', class: 'text-center'},
                         {data: 'action', class: 'text-center', orderable: false},
                     ],
                     "bDestroy": true

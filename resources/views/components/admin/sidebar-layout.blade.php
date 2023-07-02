@@ -28,8 +28,8 @@
                                         Data Dosen
                                     </a>
                                 </li>
-                                <li @if($menuKedua == "users") class="nav-active" @endif>
-                                    <a href="{{route('adm.users')}}">
+                                <li @if($menuKedua == "mahasiswa") class="nav-active" @endif>
+                                    <a href="{{route('adm.mahasiswa')}}">
                                         Data Mahasiswa
                                     </a>
                                 </li>
@@ -38,16 +38,16 @@
                                         Kriteria Penyusunan Skripsi [K]
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="ecommerce-products-list.html">
-                                        Basis Pengetahuan
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="ecommerce-products-list.html">
-                                        Rule
-                                    </a>
-                                </li>
+{{--                                <li>--}}
+{{--                                    <a href="ecommerce-products-list.html">--}}
+{{--                                        Basis Pengetahuan--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                                <li>--}}
+{{--                                    <a href="ecommerce-products-list.html">--}}
+{{--                                        Rule--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
                             </ul>
                         </li>
 

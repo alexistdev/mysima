@@ -3,36 +3,60 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Traits\AdminTrait;
-use App\Models\User;
+use App\Http\Requests\Admin\MahasiswaRequest;
+use Exception;
+use App\Service\Admin\MahasiswaService;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    use AdminTrait;
+    protected $users;
+    protected MahasiswaService $mahasiswaService;
+
+    public function __construct(MahasiswaService $mahasiswaService)
+    {
+        $this->middleware(function ($request, $next) {
+            $this->users = Auth::user();
+            return $next($request);
+        });
+        $this->mahasiswaService = $mahasiswaService;
+    }
 
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $user = User::where('role_id', "3")->get();
-            return DataTables::of($user)
-                ->addIndexColumn()
-                ->editColumn('created_at', function ($request) {
-                    return $request->created_at->format('d-m-Y H:i:s');
-                })
-                ->addColumn('action', function ($row) {
-                    $btn = "<button class=\"btn btn-sm btn-primary ml-1 open-edit\" data-id=\"$row->id\" data-name=\"$row->name\" data-email=\"$row->email\" data-toggle=\"modal\" data-target=\"#modalEdit\"> Edit</button>";
-                    $btn = $btn . "<button class=\"btn btn-sm btn-danger ml-1 open-hapus\" data-id=\"$row->id\" data-toggle=\"modal\" data-target=\"#modalHapus\"> Hapus</button>";
-                    return $btn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
+            return $this->mahasiswaService->index($request);
         }
         return view('admin.user', array(
             'judul' => "Dashboard Administrator | MySima",
             'menuUtama' => 'master',
-            'menuKedua' => 'users',
+            'menuKedua' => 'mahasiswa',
         ));
+    }
+
+    public function create()
+    {
+        return view('admin.addmahasiswa', array(
+            'judul' => "Dashboard Administrator | MySima",
+            'menuUtama' => 'master',
+            'menuKedua' => 'mahasiswa',
+        ));
+    }
+
+    public function store(MahasiswaRequest $request)
+    {
+        $request->validated();
+        DB::beginTransaction();
+        try{
+            $this->mahasiswaService->save($request);
+            DB::commit();
+            return redirect(route('adm.mahasiswa'))->with(['success' => "Data Mahasiswa Berhasil ditambahkan!"]);
+        } catch (Exception $e) {
+            DB::rollback();
+//            return redirect(route('adm.mahasiswa'))->withErrors(['error' => $e->getMessage()]);
+            echo $e->getMessage();
+        }
     }
 }
