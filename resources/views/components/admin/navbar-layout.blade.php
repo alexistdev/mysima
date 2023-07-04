@@ -33,10 +33,13 @@
             <div class="dropdown-menu">
                 <ul class="list-unstyled mb-2">
                     <li class="divider"></li>
-
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
                     <li>
-                        <a role="menuitem" tabindex="-1" href="pages-signin.html"><i class="bx bx-power-off"></i> Logout</a>
+                        <a role="menuitem" tabindex="-1" href="{{route('logout')}}"  onclick="event.preventDefault();
+                                                this.closest('form').submit();"><i class="bx bx-power-off"></i> Logout</a>
                     </li>
+                    </form>
                 </ul>
             </div>
         </div>
