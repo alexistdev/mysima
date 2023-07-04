@@ -14,15 +14,13 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $user= User::with('mahasiswa')->where('role_id',"3")
-            ->orderBy('id','DESC')
-            ->take(5)
+        $user= User::with('mahasiswa')
             ->get();
         return view('admin.dashboard', array(
             'judul' => "Dashboard Administrator | MySima",
             'menuUtama' => 'dashboard',
             'menuKedua' => 'dashboard',
-            'dataMahasiswa' => $user,
+            'dataUser' => $user->sortByDesc('id'),
 
         ));
     }

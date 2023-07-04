@@ -43,7 +43,7 @@
                                         @php
                                             $no = 1;
                                         @endphp
-                                        @foreach($dataMahasiswa as $row)
+                                        @foreach($dataUser->where('role_id','3')->take(5) as $row)
                                             <tr>
                                                 <td class="text-center">{{$no++}}</td>
                                                 <td class="text-start">{{$row->mahasiswa->nim}}</td>
@@ -75,8 +75,7 @@
                                         <div class="summary">
                                             <h4 class="title">Total Mahasiswa</h4>
                                             <div class="info">
-                                                <strong class="amount">100</strong>
-                                                <span class="text-primary">(14 unread)</span>
+                                                <strong class="amount">{{$dataUser->where('role_id','3')->count()}}</strong>
                                             </div>
                                         </div>
                                         <div class="summary-footer">
@@ -100,7 +99,7 @@
                                         <div class="summary">
                                             <h4 class="title">Total Dosen</h4>
                                             <div class="info">
-                                                <strong class="amount">10</strong>
+                                                <strong class="amount">{{$dataUser->where('role_id','2')->count()}}</strong>
                                             </div>
                                         </div>
                                         <div class="summary-footer">
@@ -126,7 +125,7 @@
                                         <div class="summary">
                                             <h4 class="title">Hasil Forward Chaining</h4>
                                             <div class="info">
-                                                <strong class="amount">38</strong>
+                                                <strong class="amount">2</strong>
                                             </div>
                                         </div>
                                         <div class="summary-footer">
@@ -150,7 +149,7 @@
                                         <div class="summary">
                                             <h4 class="title">Belum Siap Skripsi</h4>
                                             <div class="info">
-                                                <strong class="amount">62</strong>
+                                                <strong class="amount">0</strong>
                                             </div>
                                         </div>
                                         <div class="summary-footer">
