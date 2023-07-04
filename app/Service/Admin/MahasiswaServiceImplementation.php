@@ -23,8 +23,10 @@ class MahasiswaServiceImplementation implements MahasiswaService
             })
             ->addColumn('action', function ($row) {
                 $url = route('adm.mahasiswa.edit', $row->id);
-                $btn = "<a href=\"$url\"><button class=\"btn btn-sm btn-primary ml-1\" > Edit</button></a>";
-                $btn = $btn . "<button class=\"btn btn-sm btn-danger ml-1 open-hapus\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> Hapus</button>";
+                $detail = route('adm.mahasiswa.detail', base64_encode($row->id));
+                $btn = "<a href=\"$detail\"><button class=\"btn btn-sm btn-primary m-1\" > View</button></a>";
+                $btn = $btn."<a href=\"$url\"><button class=\"btn btn-sm btn-success m-1\" > Edit</button></a>";
+                $btn = $btn . "<button class=\"btn btn-sm btn-danger m-1 open-hapus\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> Hapus</button>";
                 return $btn;
             })
             ->rawColumns(['action'])

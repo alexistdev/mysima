@@ -34,6 +34,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::patch('/admin/mahasiswa', [UserAdmin::class, 'update'])->name('adm.mahasiswa.update');
         Route::get('/admin/mahasiswa/add', [UserAdmin::class, 'create'])->name('adm.mahasiswa.add');
         Route::get('/admin/mahasiswa/{id}', [UserAdmin::class, 'edit'])->name('adm.mahasiswa.edit');
+        Route::get('/admin/mahasiswa/detail/{id}', [UserAdmin::class, 'detail'])->name('adm.mahasiswa.detail');
 
         Route::get('/admin/dosen', [DosenAdmin::class, 'index'])->name('adm.dosen');
         Route::get('/admin/dosen/add', [DosenAdmin::class, 'create'])->name('adm.dosen.add');

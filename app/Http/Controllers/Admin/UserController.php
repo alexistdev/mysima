@@ -47,6 +47,17 @@ class UserController extends Controller
         ));
     }
 
+    public function detail($id)
+    {
+        $user = User::with('mahasiswa')->where('role_id', '3')->findOrFail(base64_decode($id));
+        return view('admin.detailmahasiswa', array(
+            'judul' => "Dashboard Administrator | MySima",
+            'menuUtama' => 'master',
+            'menuKedua' => 'mahasiswa',
+            'dataMahasiswa' => $user
+        ));
+    }
+
     public function store(MahasiswaRequest $request)
     {
         $request->validated();
