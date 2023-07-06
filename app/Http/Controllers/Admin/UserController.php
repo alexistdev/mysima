@@ -5,12 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DosenRequest;
 use App\Http\Requests\Admin\MahasiswaRequest;
+use App\Models\MataKuliah;
 use App\Models\User;
+use App\Models\usermatkul;
 use Exception;
 use App\Service\Admin\MahasiswaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Builder;
+use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
 {
@@ -98,5 +102,31 @@ class UserController extends Controller
             DB::rollback();
             return redirect(route('adm.mahasiswa'))->withErrors(['error' => $e->getMessage()]);
         }
+    }
+
+    public function getDataMatkul(Request $request)
+    {
+        if ($request->ajax()) {
+            $userId = $request->user_id;
+            $dataMatkul = MataKuliah::whereDoesntHave('users', function($query) use ($userId){
+                $query->where('user_id',$userId);
+            })->get();
+            return DataTables::of($dataMatkul)
+                ->addIndexColumn()
+                ->editColumn('created_at', function ($request) {
+                    return $request->created_at->format('d-m-Y H:i:s');
+                })
+                ->addColumn('action', function ($row) {
+//                    $url = route('adm.mahasiswa.edit', $row->id);
+//                    $detail = route('adm.mahasiswa.detail', base64_encode($row->id));
+//                    $btn = "<a href=\"$detail\"><button class=\"btn btn-sm btn-primary m-1\" > View</button></a>";
+//                    $btn = $btn."<a href=\"$url\"><button class=\"btn btn-sm btn-success m-1\" > Edit</button></a>";
+                    $btn = "<button class=\"btn btn-sm btn-success m-1 open-tambah\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> <i class=\"fa fa-plus\"></i></button>";
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+       return null;
     }
 }

@@ -26,7 +26,9 @@
                 <section class="card">
                     <header class="card-header">
                         <h2 class="card-title">Informasi</h2>
-                        <a href="{{route('adm.mahasiswa')}}"><button class="btn btn-sm btn-danger float-end">KEMBALI</button></a>
+                        <a href="{{route('adm.mahasiswa')}}">
+                            <button class="btn btn-sm btn-danger float-end">KEMBALI</button>
+                        </a>
                     </header>
                     <div class="card-body">
                         <div class="row">
@@ -86,34 +88,12 @@
                 <section class="card">
                     <header class="card-header">
                         <h2 class="card-title">SKS</h2>
+                        <button class="btn btn-sm btn-primary float-end" data-bs-toggle="modal" data-bs-target="#modalTambah">Tambah</button>
                     </header>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-12">
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>NO</th>
-                                        <th>MATA KULIAH</th>
-                                        <th>SKS</th>
-                                        <th>UTS</th>
-                                        <th>UAS</th>
-                                        <th>PRESENSI</th>
-                                        <th>TOTAL</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+
 
                             </div>
                         </div>
@@ -123,11 +103,42 @@
             </div>
         </div>
     </section>
+
+    <!-- START : Modal Tambah -->
+    <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Daftar Matakuliah</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table id="tabel1" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>NO</th>
+                            <th>KODE</th>
+                            <th>NAME</th>
+                            <th>SKS</th>
+                            <th>ACTION</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- END : Modal Tambah -->
     @push('customJS')
 
         <script>
             $(document).ready(function () {
-                let base_url = "{{route('adm.dosen')}}";
+                let base_url = "{{route('ajax.datamatkul')}}";
+                let user_id = "{{$dataMahasiswa->id}}"
                 $('#tabel1').DataTable({
                     responsive: true,
                     processing: true,
@@ -136,6 +147,9 @@
                         type: 'GET',
                         url: base_url,
                         async: true,
+                        data: {
+                            user_id: user_id
+                        }
                     },
                     language: {
                         processing: "Loading",
@@ -152,9 +166,9 @@
                                 return meta.row + meta.settings._iDisplayStart + 1; //auto increment
                             }
                         },
+                        {data: 'code', class: 'text-center'},
                         {data: 'name', class: 'text-center'},
-                        {data: 'email', class: 'text-center'},
-                        {data: 'created_at', class: 'text-center'},
+                        {data: 'sks', class: 'text-center'},
                         {data: 'action', class: 'text-center', orderable: false},
                     ],
                     "bDestroy": true

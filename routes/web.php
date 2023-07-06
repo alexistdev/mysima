@@ -48,6 +48,9 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::post('/admin/mapel', [MapelAdmin::class, 'store'])->name('adm.mapel.save');
         Route::patch('/admin/mapel', [MapelAdmin::class, 'update'])->name('adm.mapel.update');
         Route::delete('/admin/mapel', [MapelAdmin::class, 'destroy'])->name('adm.mapel.delete');
+
+        /** ajax */
+        Route::get('/admin/ajax/matkul', [UserAdmin::class, 'getDataMatkul'])->name('ajax.datamatkul');
     });
 
     Route::group(['roles' => 'dosen'], function () {
