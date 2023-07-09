@@ -1,6 +1,7 @@
 <x-admin.template-admin :title="$judul" :menu-utama="$menuUtama" :menu-kedua="$menuKedua">
     @push('cssCustom')
         <link rel="stylesheet" href="{{asset('template/vendor/datatables/media/css/dataTables.bootstrap5.css')}}"/>
+        <link rel="stylesheet" href="{{asset('template/vendor/pnotify/pnotify.custom.css')}}"/>
     @endpush
     <section role="main" class="content-body">
         <header class="page-header page-header-left-breadcrumb">
@@ -127,15 +128,44 @@
                         </tbody>
                     </table>
                 </div>
-
-
             </div>
         </div>
     </div>
     <!-- END : Modal Tambah -->
-    @push('customJS')
 
+        <!-- START : Modal Add -->
+        <div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <form action="{{route('adm.mahasiswa.matkul.add',$idUser)}}" method="post">
+                    @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah Mata Kuliah</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="matakuliah_id" id="matakuliah_id">
+                       Apakah anda ingin menambahkan mata kuliah ini ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Tambahkan</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+        <!-- END : Modal Add -->
+    @push('customJS')
+            <script src="{{asset('template/vendor/pnotify/pnotify.custom.js')}}"></script>
+            <x-admin.toast-message/>
         <script>
+            $(document).on("click", ".open-matkul", function (e) {
+                e.preventDefault();
+                let fid = $(this).data('id');
+                $('#matakuliah_id').val(fid);
+            })
+
             $(document).ready(function () {
                 let base_url = "{{route('ajax.datamatkul')}}";
                 let user_id = "{{$dataMahasiswa->id}}"

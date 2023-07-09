@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DosenRequest;
 use App\Http\Requests\Admin\MahasiswaRequest;
+use App\Http\Requests\Admin\SKSRequest;
 use App\Models\MataKuliah;
 use App\Models\User;
 use App\Models\usermatkul;
@@ -58,7 +59,8 @@ class UserController extends Controller
             'judul' => "Dashboard Administrator | MySima",
             'menuUtama' => 'master',
             'menuKedua' => 'mahasiswa',
-            'dataMahasiswa' => $user
+            'dataMahasiswa' => $user,
+            'idUser' => $id,
         ));
     }
 
@@ -121,12 +123,27 @@ class UserController extends Controller
 //                    $detail = route('adm.mahasiswa.detail', base64_encode($row->id));
 //                    $btn = "<a href=\"$detail\"><button class=\"btn btn-sm btn-primary m-1\" > View</button></a>";
 //                    $btn = $btn."<a href=\"$url\"><button class=\"btn btn-sm btn-success m-1\" > Edit</button></a>";
-                    $btn = "<button class=\"btn btn-sm btn-success m-1 open-tambah\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> <i class=\"fa fa-plus\"></i></button>";
+                    $btn = "<button class=\"btn btn-sm btn-success m-1 open-matkul\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalAdd\"> <i class=\"fa fa-plus\"></i></button>";
                     return $btn;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
        return null;
+    }
+
+    public function matkul_add($id,SKSRequest $request)
+    {
+        $request->validated();
+        $user = User::with('mahasiswa')->where('role_id', '3')->findOrFail(base64_decode($id));
+        DB::beginTransaction();
+        try {
+            $this->mahasiswaService->addSKS($request,$user);
+            DB::commit();
+            return redirect(route('adm.mahasiswa.detail', $id))->with(['success' => "SKS berhasil ditambahkan!"]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect(route('adm.mahasiswa'))->withErrors(['error' => $e->getMessage()]);
+        }
     }
 }

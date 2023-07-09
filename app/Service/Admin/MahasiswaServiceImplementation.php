@@ -4,9 +4,11 @@ namespace App\Service\Admin;
 
 use App\Http\Requests\Admin\DosenRequest;
 use App\Http\Requests\Admin\MahasiswaRequest;
+use App\Http\Requests\Admin\SKSRequest;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\User;
+use App\Models\usermatkul;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\DataTables;
@@ -68,5 +70,11 @@ class MahasiswaServiceImplementation implements MahasiswaService
         ]);
     }
 
-
+    public function addSKS(SKSRequest $request,$user): void
+    {
+        $sks = new usermatkul();
+        $sks->user_id = $user->id;
+        $sks->matakuliah_id = $request->matakuliah_id;
+        $sks->save();
+    }
 }
