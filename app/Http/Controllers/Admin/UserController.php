@@ -109,25 +109,7 @@ class UserController extends Controller
     public function getDataMatkul(Request $request)
     {
         if ($request->ajax()) {
-            $userId = $request->user_id;
-            $dataMatkul = MataKuliah::whereDoesntHave('users', function($query) use ($userId){
-                $query->where('user_id',$userId);
-            })->get();
-            return DataTables::of($dataMatkul)
-                ->addIndexColumn()
-                ->editColumn('created_at', function ($request) {
-                    return $request->created_at->format('d-m-Y H:i:s');
-                })
-                ->addColumn('action', function ($row) {
-//                    $url = route('adm.mahasiswa.edit', $row->id);
-//                    $detail = route('adm.mahasiswa.detail', base64_encode($row->id));
-//                    $btn = "<a href=\"$detail\"><button class=\"btn btn-sm btn-primary m-1\" > View</button></a>";
-//                    $btn = $btn."<a href=\"$url\"><button class=\"btn btn-sm btn-success m-1\" > Edit</button></a>";
-                    $btn = "<button class=\"btn btn-sm btn-success m-1 open-matkul\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalAdd\"> <i class=\"fa fa-plus\"></i></button>";
-                    return $btn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
+            return $this->mahasiswaService->dataMatkul($request);
         }
        return null;
     }
@@ -145,5 +127,13 @@ class UserController extends Controller
             DB::rollback();
             return redirect(route('adm.mahasiswa'))->withErrors(['error' => $e->getMessage()]);
         }
+    }
+
+    public function getDataSKS(Request $request)
+    {
+        if ($request->ajax()) {
+            return $this->mahasiswaService->dataSKS($request);
+        }
+        return null;
     }
 }

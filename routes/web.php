@@ -52,6 +52,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
 
         /** ajax */
         Route::get('/admin/ajax/matkul', [UserAdmin::class, 'getDataMatkul'])->name('ajax.datamatkul');
+        Route::get('/admin/ajax/sks', [UserAdmin::class, 'getDataSKS'])->name('ajax.sks');
     });
 
     Route::group(['roles' => 'dosen'], function () {

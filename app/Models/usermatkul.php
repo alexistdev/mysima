@@ -13,4 +13,8 @@ class usermatkul extends Model
     public function user() {
         return $this->belongsTo(User::class,'user_id');
     }
+
+    public function matkul(){
+        return $this->belongsTo(MataKuliah::class,'matakuliah_id','id');
+    }
 }

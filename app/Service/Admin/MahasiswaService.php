@@ -13,4 +13,6 @@ interface MahasiswaService
     public function save(MahasiswaRequest $request):void;
     public function update(MahasiswaRequest $request):void;
     public function addSKS(SKSRequest $request,$user):void;
+    public function dataSKS(Request $request);
+    public function dataMatkul(Request $request);
 }

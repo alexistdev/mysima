@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\MahasiswaRequest;
 use App\Http\Requests\Admin\SKSRequest;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
+use App\Models\MataKuliah;
 use App\Models\User;
 use App\Models\usermatkul;
 use Illuminate\Http\Request;
@@ -77,4 +78,37 @@ class MahasiswaServiceImplementation implements MahasiswaService
         $sks->matakuliah_id = $request->matakuliah_id;
         $sks->save();
     }
+
+    public function dataSKS(Request $request)
+    {
+        $data = usermatkul::with('matkul')->where('user_id',$request->user_id)->get();
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($request) {
+                return $request->created_at->format('d-m-Y H:i:s');
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function dataMatkul(Request $request)
+    {
+        $userId = $request->user_id;
+        $dataMatkul = MataKuliah::whereDoesntHave('users', function($query) use ($userId){
+            $query->where('user_id',$userId);
+        })->get();
+        return DataTables::of($dataMatkul)
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($request) {
+                return $request->created_at->format('d-m-Y H:i:s');
+            })
+            ->addColumn('action', function ($row) {
+                $btn = "<button class=\"btn btn-sm btn-success m-1 open-matkul\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalAdd\"> <i class=\"fa fa-plus\"></i></button>";
+                return $btn;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+
 }

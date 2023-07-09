@@ -94,7 +94,22 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-12">
-
+                                <table id="tabelSKS" class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>KODE</th>
+                                        <th>NAME</th>
+                                        <th>SKS</th>
+                                        <th>NILAI UTS</th>
+                                        <th>NILAI UAS</th>
+                                        <th>PRESENSI</th>
+                                        <th>TOTAL</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
 
                             </div>
                         </div>
@@ -168,6 +183,7 @@
 
             $(document).ready(function () {
                 let base_url = "{{route('ajax.datamatkul')}}";
+                let url_sks = "{{route('ajax.sks')}}";
                 let user_id = "{{$dataMahasiswa->id}}"
                 $('#tabel1').DataTable({
                     responsive: true,
@@ -200,6 +216,45 @@
                         {data: 'name', class: 'text-center'},
                         {data: 'sks', class: 'text-center'},
                         {data: 'action', class: 'text-center', orderable: false},
+                    ],
+                    "bDestroy": true
+                });
+
+                $('#tabelSKS').DataTable({
+                    responsive: true,
+                    processing: true,
+                    serverSide: true,
+                    ajax: {
+                        type: 'GET',
+                        url: url_sks,
+                        async: true,
+                        data: {
+                            user_id: user_id
+                        }
+                    },
+                    language: {
+                        processing: "Loading",
+                    },
+                    columns: [
+                        {
+                            data: 'index',
+                            class: 'text-center',
+                            defaultContent: '',
+                            orderable: false,
+                            searchable: false,
+                            width: '5%',
+                            render: function (data, type, row, meta) {
+                                return meta.row + meta.settings._iDisplayStart + 1; //auto increment
+                            }
+                        },
+                        {data: 'matkul.code', class: 'text-center'},
+                        {data: 'matkul.name', class: 'text-center'},
+                        {data: 'matkul.sks', class: 'text-center'},
+                        {data: 'uts', class: 'text-center'},
+                        {data: 'uas', class: 'text-center'},
+                        {data: 'presensi', class: 'text-center'},
+                        {data: 'total', class: 'text-center'},
+                        // {data: 'action', class: 'text-center', orderable: false},
                     ],
                     "bDestroy": true
                 });
