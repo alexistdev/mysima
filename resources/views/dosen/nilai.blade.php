@@ -13,10 +13,10 @@
                         </a>
                     </li>
                     <li><span>Master</span></li>
-                    <li><span>Mata Pelajaran</span></li>
+                    <li><span>Input Nilai Mahasiswa</span></li>
                 </ol>
             </div>
-            <h2 class="font-weight-semibold">Mata Pelajaran</h2>
+            <h2 class="font-weight-semibold">Mata Kuliah Kalkulus </h2>
         </header>
 
         <!-- start: page -->
@@ -28,23 +28,35 @@
                             <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#modalTambah"><i class='bx bx-duplicate'></i></button>
                         </div>
-                        <h2 class="card-title">Mata Pelajaran</h2>
+                        <h2 class="card-title">Data Mahasiswa</h2>
                     </header>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-xl-12">
-                                <table id="tabel1" class="table table-bordered table-striped mb-0" style="width: 100%">
+                                <table id="tabel12" class="table table-bordered table-striped mb-0" style="width: 100%">
                                     <thead>
                                     <tr>
                                         <th scope="col" class="text-center">#</th>
-                                        <th scope="col" class="text-center">KODE</th>
+                                        <th scope="col" class="text-center">NPM</th>
                                         <th scope="col" class="text-center">NAMA</th>
-                                        <th scope="col" class="text-center">SKS</th>
+                                        <th scope="col" class="text-center">UTS</th>
+                                        <th scope="col" class="text-center">UAS</th>
+                                        <th scope="col" class="text-center">PRESENSI</th>
+                                        <th scope="col" class="text-center">NILAI</th>
                                         <th scope="col" class="text-center">ACTION</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-
+                                        <tr>
+                                            <td class="text-center">1</td>
+                                            <td class="text-start">182222</td>
+                                            <td class="text-start">Mahasiswa</td>
+                                            <td class="text-center">70</td>
+                                            <td class="text-center">0</td>
+                                            <td class="text-center">0</td>
+                                            <td class="text-center">E</td>
+                                            <td class="text-center"><button class="btn btn-sm btn-primary">INPUT NILAI</button></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

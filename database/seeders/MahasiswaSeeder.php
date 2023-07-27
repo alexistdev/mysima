@@ -15,7 +15,7 @@ class MahasiswaSeeder extends Seeder
     {
         $date = Carbon::now()->format('Y-m-d H:i:s');
         $mahasiswa = [
-            array('user_id' => '3', 'nim' => '2221210003', 'phone' => '0812345678', 'alamat' => 'lampung', 'created_at' => $date, 'updated_at' => $date)
+            array('user_id' => '3', 'kelas_id' => '1','nim' => '2221210003', 'phone' => '0812345678', 'alamat' => 'lampung', 'created_at' => $date, 'updated_at' => $date)
         ];
         Mahasiswa::insert($mahasiswa);
     }
