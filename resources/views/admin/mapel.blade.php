@@ -13,10 +13,10 @@
                         </a>
                     </li>
                     <li><span>Master</span></li>
-                    <li><span>Mata Pelajaran</span></li>
+                    <li><span>Mata Kuliah</span></li>
                 </ol>
             </div>
-            <h2 class="font-weight-semibold">Mata Pelajaran</h2>
+            <h2 class="font-weight-semibold">Mata Kuliah</h2>
         </header>
 
         <!-- start: page -->
@@ -28,7 +28,7 @@
                             <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#modalTambah"><i class='bx bx-duplicate'></i></button>
                         </div>
-                        <h2 class="card-title">Mata Pelajaran</h2>
+                        <h2 class="card-title">Mata Kuliah</h2>
                     </header>
                     <div class="card-body">
                         <div class="row">

@@ -20,7 +20,7 @@
                             <ul class="nav nav-children">
                                 <li @if($menuKedua == "mapel") class="nav-active" @endif>
                                     <a href="{{route('adm.mapel')}}">
-                                        Data Mata Pelajaran
+                                        Data Mata Kuliah
                                     </a>
                                 </li>
                                 <li @if($menuKedua == "kelas") class="nav-active" @endif>

@@ -53,10 +53,12 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
 
         Route::get('/admin/kelas', [KelasAdmin::class, 'index'])->name('adm.kelas');
         Route::post('/admin/kelas', [KelasAdmin::class, 'store'])->name('adm.kelas.save');
+        Route::get('/admin/{id}/kelas', [KelasAdmin::class, 'detail'])->name('adm.kelas.detail');
 
         /** ajax */
         Route::get('/admin/ajax/matkul', [UserAdmin::class, 'getDataMatkul'])->name('ajax.datamatkul');
         Route::get('/admin/ajax/sks', [UserAdmin::class, 'getDataSKS'])->name('ajax.sks');
+        Route::get('/admin/ajax/get_siswa_kelas', [KelasAdmin::class, 'getDataMahasiswa'])->name('ajax.getsiswakelas');
     });
 
     Route::group(['roles' => 'dosen'], function () {
