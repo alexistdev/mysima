@@ -6,7 +6,8 @@ use App\Http\Controllers\Admin\{DashboardController as DashAdmin,
 UserController as UserAdmin,
 CriteriaController as CriteriaAdmin,
 MataPelajaran as MapelAdmin,
-DosenController as DosenAdmin};
+DosenController as DosenAdmin,
+KelasController as KelasAdmin};
 
 use App\Http\Controllers\Dosen\{DashboardController as DashDosen,
 InputNilaiController as NilaiDosen};
@@ -49,6 +50,9 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::post('/admin/mapel', [MapelAdmin::class, 'store'])->name('adm.mapel.save');
         Route::patch('/admin/mapel', [MapelAdmin::class, 'update'])->name('adm.mapel.update');
         Route::delete('/admin/mapel', [MapelAdmin::class, 'destroy'])->name('adm.mapel.delete');
+
+        Route::get('/admin/kelas', [KelasAdmin::class, 'index'])->name('adm.kelas');
+        Route::post('/admin/kelas', [KelasAdmin::class, 'store'])->name('adm.kelas.save');
 
         /** ajax */
         Route::get('/admin/ajax/matkul', [UserAdmin::class, 'getDataMatkul'])->name('ajax.datamatkul');

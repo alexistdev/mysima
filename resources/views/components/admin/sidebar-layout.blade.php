@@ -23,6 +23,11 @@
                                         Data Mata Pelajaran
                                     </a>
                                 </li>
+                                <li @if($menuKedua == "kelas") class="nav-active" @endif>
+                                    <a href="{{route('adm.kelas')}}">
+                                        Data Kelas
+                                    </a>
+                                </li>
                                 <li @if($menuKedua == "dosen") class="nav-active" @endif>
                                     <a href="{{route('adm.dosen')}}">
                                         Data Dosen

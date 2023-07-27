@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Service\Admin\DosenService;
 use App\Service\Admin\DosenServiceImplementation;
+use App\Service\Admin\KelasService;
+use App\Service\Admin\KelasServiceImplementation;
 use App\Service\Admin\MahasiswaService;
 use App\Service\Admin\MahasiswaServiceImplementation;
 use App\Service\Admin\MapelService;
@@ -15,7 +17,8 @@ class AppServiceProvider extends ServiceProvider
     public $bindings = [
         MapelService::class => MapelServiceServiceImplementation::class,
         DosenService::class => DosenServiceImplementation::class,
-        MahasiswaService::class => MahasiswaServiceImplementation::class
+        MahasiswaService::class => MahasiswaServiceImplementation::class,
+        KelasService::class => KelasServiceImplementation::class,
     ];
 
     public function register(): void
