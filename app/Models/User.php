@@ -37,6 +37,11 @@ class User extends Authenticatable
         return $this->hasOne(Dosen::class);
     }
 
+    public function isMahasiswa($query)
+    {
+        return $query->where('role_id','3');
+    }
+
     public function mahasiswa()
     {
         return $this->hasOne(Mahasiswa::class);

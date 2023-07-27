@@ -14,9 +14,10 @@ InputNilaiController as NilaiDosen};
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//   redirect('/login','301');
+//});
+Route::redirect('/', '/login');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

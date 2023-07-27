@@ -14,7 +14,13 @@ class usermatkul extends Model
         return $this->belongsTo(User::class,'user_id');
     }
 
+    public function maha(){
+        return $this->belongsTo(User::class,'user_id')->with('mahasiswa');
+    }
+
     public function matkul(){
         return $this->belongsTo(MataKuliah::class,'matakuliah_id','id');
     }
+
+
 }
