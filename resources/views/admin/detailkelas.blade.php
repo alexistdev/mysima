@@ -18,7 +18,8 @@
                 </ol>
 
             </div>
-            <h2 class="font-weight-semibold">Detail Kelas <span class="text-primary">{{strtoupper($dataKelas->name)}}</span></h2>
+            <h2 class="font-weight-semibold">Detail Kelas <span
+                    class="text-primary">{{strtoupper($dataKelas->name)}}</span></h2>
         </header>
 
         <!-- start: statistik -->
@@ -40,7 +41,7 @@
                                     </div>
                                 </div>
                                 <div class="summary-footer">
-                                    <a class="text-muted text-uppercase" href="#">(view all)</a>
+                                    <a class="text-muted text-uppercase" href="{{route('adm.mahasiswa')}}">(view all)</a>
                                 </div>
                             </div>
                         </div>
@@ -58,14 +59,15 @@
                     <header class="card-header">
                         <div class="card-actions">
                             <button class="btn btn-sm btn-primary open-nonkelas" data-bs-toggle="modal"
-                                    data-bs-target="#modalTambah" ><i class='bx bx-duplicate'></i></button>
+                                    data-bs-target="#modalTambah"><i class='bx bx-duplicate'></i></button>
                         </div>
                         <h2 class="card-title">DATA MAHASISWA</h2>
                     </header>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-xl-12">
-                                <table id="tabelMahasiswa" class="table table-bordered table-striped mb-0" style="width: 100%">
+                                <table id="tabelMahasiswa" class="table table-bordered table-striped mb-0"
+                                       style="width: 100%">
                                     <thead>
                                     <tr>
                                         <th scope="col" class="text-center">#</th>
@@ -82,7 +84,9 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="{{route('adm.kelas')}}"><button class="btn btn-sm btn-danger">Kembali</button></a>
+                        <a href="{{route('adm.kelas')}}">
+                            <button class="btn btn-sm btn-danger">Kembali</button>
+                        </a>
                     </div>
                 </section>
             </div>
@@ -98,151 +102,72 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                    <div class="modal-body">
-                        <!-- Start: Code -->
-                        <div class="row mt-2">
-                            <div class="col-md-12">
-                                <table id="tabelMahasiswaNonKelas" class="table table-bordered table-striped mb-0" style="width: 100%">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col" class="text-center">#</th>
-                                        <th scope="col" class="text-center">NIM</th>
-                                        <th scope="col" class="text-center">NAMA</th>
-                                        <th scope="col" class="text-center">ACTION</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
+                <div class="modal-body">
+                    <!-- Start: Code -->
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <table id="tabelMahasiswaNonKelas" class="table table-bordered table-striped mb-0"
+                                   style="width: 100%">
+                                <thead>
+                                <tr>
+                                    <th scope="col" class="text-center">#</th>
+                                    <th scope="col" class="text-center">NIM</th>
+                                    <th scope="col" class="text-center">NAMA</th>
+                                    <th scope="col" class="text-center">ACTION</th>
+                                </tr>
+                                </thead>
+                                <tbody>
 
-                                    </tbody>
-                                </table>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
-                        <!-- End: Code -->
+                    </div>
+                    <!-- End: Code -->
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                </div>
 
             </div>
         </div>
     </div>
     <!-- END : Modal TAMBAH -->
 
-        <!-- START : Modal TAMBAH -->
-        <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form action="{{route('adm.mapel.save')}}" method="post">
-                        @csrf
-                        <div class="modal-body">
-                            <!-- Start: Code -->
-                            <div class="row mt-2">
-                                <div class="col-md-12">
-                                    <label for="code"
-                                        @class(["form-label","errorLabel",($errors->has('code'))? "text-danger":""]) >KODE
-                                        MATA KULIAH
-                                    </label>
-                                    <input type="text" name="code" maxlength="125"
-                                           @class(["form-control","errorInput",($errors->has('code'))? "is-invalid":""]) value="{{old('code')}}"
-                                           id="code" placeholder="Kode Mata Kuliah">
-                                    @if($errors->has('code'))
-                                        <span
-                                            class="text-danger errorMessage">{{$errors->first('code')}}</span>
-                                    @endif
-                                </div>
-                            </div>
-                            <!-- End: Code -->
-
-
-                            <!-- Start: Name -->
-                            <div class="row mt-2">
-                                <div class="col-md-12">
-                                    <label for="name"
-                                        @class(["form-label","errorLabel",($errors->has('name'))? "text-danger":""]) >NAMA
-                                        MATA KULIAH
-                                    </label>
-                                    <input type="text" name="name" maxlength="125"
-                                           @class(["form-control","errorInput",($errors->has('name'))? "is-invalid":""]) value="{{old('name')}}"
-                                           id="name" placeholder="Nama Mata Kuliah">
-                                    @error('name')
-                                    <span
-                                        class="text-danger errorMessage">{{$errors->first('name')}}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <!-- End: Name -->
-
-                            <!-- Start: SKS -->
-                            <div class="row mt-2">
-                                <div class="col-md-12">
-                                    <label for="sks"
-                                        @class(["form-label","errorLabel",($errors->has('sks'))? "text-danger":""]) >JUMLAH
-                                        SKS
-                                    </label>
-                                    <select name="sks"
-                                            id="sks" @class(["form-control","errorInput",($errors->has('sks'))? "is-invalid":""]) >
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                    </select>
-                                    @if($errors->has('sks'))
-                                        <span
-                                            class="text-danger errorMessage">{{$errors->first('sks')}}</span>
-                                    @endif
-                                </div>
-                            </div>
-                            <!-- End: SKS -->
-
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!-- END : Modal TAMBAH -->
-
-    <!-- START : Modal HAPUS -->
-    <div class="modal fade" id="modalHapus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <!-- START : Modal KONFIRM -->
+    <div class="modal fade" id="modalKonfirm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{route('adm.dosen.delete')}}" method="post">
+                <form action="{{route('adm.kelas.tambah_siswa',base64_encode($dataKelas->id))}}" method="post">
                     @csrf
-                    @method('delete')
                     <div class="modal-body">
                         <!-- Start: Code -->
-                        <div class="row">
+                        <div class="row mt-2">
                             <div class="col-md-12">
-                                <input type="hidden" id="hapususer_id" name="user_id" value="{{old('user_id')}}">
+                                <label for="user_id" class="hidden"></label>
+                                <input type="hidden" class="form-control" name="user_id" id="user_id">
+                                Apakah anda ingin menambahkan data siswa ini ke dalam kelas?
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                Apakah anda ingin menghapus data ini ?
-                            </div>
-                        </div>
+                        <!-- End: Code -->
+
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-danger">Hapus</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Tambahkan</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
-    <!-- END : Modal HAPUS -->
+    <!-- END : Modal KONFIRM -->
+
+
     @push('customJS')
         <script src="{{asset('template/vendor/pnotify/pnotify.custom.js')}}"></script>
         <x-admin.toast-message/>
@@ -256,6 +181,13 @@
                     let fid = $(this).data('id');
                     $('#hapususer_id').val(fid);
                 })
+
+                $(document).on("click", ".open-konfirm", function (e) {
+                    e.preventDefault();
+                    let fid = $(this).data('id');
+                    $('#user_id').val(fid);
+                })
+
 
                 $(document).on("click", ".open-nonkelas", function (e) {
                     e.preventDefault();
@@ -305,6 +237,7 @@
                         "bDestroy": true
                     });
                 }
+
                 $('#tabelMahasiswa').DataTable({
                     responsive: true,
                     processing: true,
@@ -314,7 +247,7 @@
                         url: base_url,
                         async: true,
                         data: {
-                            'kelas_id' : kelas_id
+                            'kelas_id': kelas_id
                         }
                     },
                     language: {

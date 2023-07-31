@@ -4,6 +4,7 @@ namespace App\Service\Admin;
 
 use App\Http\Requests\Admin\DosenRequest;
 use App\Http\Requests\Admin\KelasRequest;
+use App\Http\Requests\Admin\TambahSiswaNonKelasRequest;
 use App\Models\Kelas;
 use App\Models\Mahasiswa;
 use Illuminate\Http\JsonResponse;
@@ -67,14 +68,19 @@ class KelasServiceImplementation implements KelasService
                 return $request->created_at->format('d-m-Y H:i:s');
             })
             ->addColumn('action', function ($row) {
-//                $url = route('adm.kelas.detail', base64_encode($row->id));
-                $btn = "<a href='#'><button class=\"btn btn-sm btn-danger m-1\">+</button></a>";
-//                $btn = $btn."<button class=\"btn btn-sm btn-success m-1 open-edit\" data-id=\"$row->id\" data-name=\"$row->name\"  data-bs-toggle=\"modal\" data-bs-target=\"#modalEdit\"> Edit</button>";
-//                $btn = $btn . "<button class=\"btn btn-sm btn-danger m-1 open-hapus\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> Hapus</button>";
+                $idUser = base64_encode($row->id);
+                $btn = "<a href='#'><button class=\"btn btn-sm btn-primary m-1 open-konfirm\" data-id=\"$idUser\" data-name=\"$row->name\" data-bs-toggle=\"modal\" data-bs-target=\"#modalKonfirm\">+</button></a>";
                 return $btn;
             })
             ->rawColumns(['action'])
             ->make(true);
+    }
+
+    public function add_siswa(int $user_id,int $kelas_id): void
+    {
+       Mahasiswa::where('id',$user_id)->update([
+          'kelas_id' => $kelas_id
+       ]);
     }
 
 

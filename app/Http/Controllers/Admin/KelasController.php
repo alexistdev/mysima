@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\KelasRequest;
+use App\Http\Requests\Admin\TambahSiswaNonKelasRequest;
 use App\Models\Kelas;
 use App\Models\Mahasiswa;
+use App\Models\User;
 use Exception;
 use App\Service\Admin\KelasService;
 use Illuminate\Http\Request;
@@ -78,6 +80,21 @@ class KelasController extends Controller
             return $this->kelasService->get_data_mahasiswa_non_kelas($request);
         }
         return null;
+    }
+
+    public function tambah_data_siswa(TambahSiswaNonKelasRequest $request,$idKelas)
+    {
+        $request->validated();
+        $user = User::findOrFail(base64_decode($request->user_id));
+        DB::beginTransaction();
+        try {
+            $this->kelasService->add_siswa($user->id,base64_decode($idKelas));
+            DB::commit();
+            return redirect(route('adm.kelas.detail',$idKelas))->with(['success' => "Data Siswa Berhasil ditambahkan!"]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect(route('adm.kelas.detail',$idKelas))->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
 }
