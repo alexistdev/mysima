@@ -58,5 +58,24 @@ class KelasServiceImplementation implements KelasService
             ->make(true);
     }
 
+    public function get_data_mahasiswa_non_kelas(Request $request): \Symfony\Component\HttpFoundation\JsonResponse
+    {
+        $mahasiswa = Mahasiswa::with('user')->whereNull('kelas_id')->get();
+        return DataTables::of($mahasiswa)
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($request) {
+                return $request->created_at->format('d-m-Y H:i:s');
+            })
+            ->addColumn('action', function ($row) {
+//                $url = route('adm.kelas.detail', base64_encode($row->id));
+                $btn = "<a href='#'><button class=\"btn btn-sm btn-danger m-1\">+</button></a>";
+//                $btn = $btn."<button class=\"btn btn-sm btn-success m-1 open-edit\" data-id=\"$row->id\" data-name=\"$row->name\"  data-bs-toggle=\"modal\" data-bs-target=\"#modalEdit\"> Edit</button>";
+//                $btn = $btn . "<button class=\"btn btn-sm btn-danger m-1 open-hapus\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> Hapus</button>";
+                return $btn;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
 
 }

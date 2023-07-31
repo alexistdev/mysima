@@ -42,6 +42,7 @@ class InputNilaiController extends Controller
                 return $item->maha->role_id  == "3";
             });
         }
+//        return $data;
         $kelas = Kelas::all();
         $matakuliah = usermatkul::with('matkul')->where('user_id',$this->users->id)->get();
         return view('dosen.nilai', array(

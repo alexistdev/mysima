@@ -11,4 +11,5 @@ interface KelasService
     public function index(Request $request);
     public function save(KelasRequest $request):void;
     public function get_data_mahasiswa_kelas(Request $request):JsonResponse;
+    public function get_data_mahasiswa_non_kelas(Request $request):JsonResponse;
 }

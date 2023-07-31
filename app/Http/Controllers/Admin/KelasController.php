@@ -73,4 +73,11 @@ class KelasController extends Controller
         return null;
     }
 
+    public function getDataMahasiswaNonKelas(Request $request){
+        if ($request->ajax()) {
+            return $this->kelasService->get_data_mahasiswa_non_kelas($request);
+        }
+        return null;
+    }
+
 }

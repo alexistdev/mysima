@@ -60,6 +60,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::get('/admin/ajax/matkul', [UserAdmin::class, 'getDataMatkul'])->name('ajax.datamatkul');
         Route::get('/admin/ajax/sks', [UserAdmin::class, 'getDataSKS'])->name('ajax.sks');
         Route::get('/admin/ajax/get_siswa_kelas', [KelasAdmin::class, 'getDataMahasiswa'])->name('ajax.getsiswakelas');
+        Route::get('/admin/ajax/get_siswa_non_kelas', [KelasAdmin::class, 'getDataMahasiswaNonKelas'])->name('ajax.getsiswanonkelas');
     });
 
     Route::group(['roles' => 'dosen'], function () {
