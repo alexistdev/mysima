@@ -49,10 +49,8 @@ class KelasServiceImplementation implements KelasService
                 return $request->created_at->format('d-m-Y H:i:s');
             })
             ->addColumn('action', function ($row) {
-//                $url = route('adm.kelas.detail', base64_encode($row->id));
-                $btn = "<a href='#'><button class=\"btn btn-sm btn-danger m-1\">X</button></a>";
-//                $btn = $btn."<button class=\"btn btn-sm btn-success m-1 open-edit\" data-id=\"$row->id\" data-name=\"$row->name\"  data-bs-toggle=\"modal\" data-bs-target=\"#modalEdit\"> Edit</button>";
-//                $btn = $btn . "<button class=\"btn btn-sm btn-danger m-1 open-hapus\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> Hapus</button>";
+                $idUser = base64_encode($row->id);
+                $btn = "<a href='#'><button class=\"btn btn-sm btn-danger m-1 open-lepas\" data-id=\"$idUser\" data-bs-toggle=\"modal\" data-bs-target=\"#modalLepas\">X</button></a>";
                 return $btn;
             })
             ->rawColumns(['action'])
@@ -76,12 +74,17 @@ class KelasServiceImplementation implements KelasService
             ->make(true);
     }
 
-    public function add_siswa(int $user_id,int $kelas_id): void
+    public function update_siswa(int $user_id,int $kelas_id, int $tipe): void
     {
+        $idKelas = null;
+        if($tipe != 2){
+            $idKelas = $kelas_id;
+        }
        Mahasiswa::where('id',$user_id)->update([
-          'kelas_id' => $kelas_id
+          'kelas_id' => $idKelas
        ]);
     }
+
 
 
 }

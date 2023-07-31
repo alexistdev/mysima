@@ -19,6 +19,7 @@
                 title: 'Success',
                 text: message,
                 type: 'success',
+                delay: 1000,
                 shadow: true
             });
         </script>
@@ -29,6 +30,7 @@
             let message = '{!! $message !!}';
             new PNotify({
                 title: 'Dihapus!',
+                delay: 1000,
                 text: message,
                 type: 'warning',
                 shadow: true

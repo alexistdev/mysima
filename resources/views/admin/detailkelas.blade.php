@@ -167,6 +167,40 @@
     </div>
     <!-- END : Modal KONFIRM -->
 
+        <!-- START : Modal KONFIRM -->
+        <div class="modal fade" id="modalLepas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{route('adm.kelas.tambah_siswa',base64_encode($dataKelas->id))}}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <div class="modal-body">
+                            <!-- Start: Code -->
+                            <div class="row mt-2">
+                                <div class="col-md-12">
+                                    <label for="user_id_lepas" class="hidden"></label>
+                                    <input type="hidden" class="form-control" name="user_id" id="user_id_lepas">
+                                    Apakah anda ingin menghapus siswa ini dari daftar kelas?
+                                </div>
+                            </div>
+                            <!-- End: Code -->
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Hapus</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <!-- END : Modal KONFIRM -->
+
 
     @push('customJS')
         <script src="{{asset('template/vendor/pnotify/pnotify.custom.js')}}"></script>
@@ -186,6 +220,12 @@
                     e.preventDefault();
                     let fid = $(this).data('id');
                     $('#user_id').val(fid);
+                })
+
+                $(document).on("click", ".open-lepas", function (e) {
+                    e.preventDefault();
+                    let fid = $(this).data('id');
+                    $('#user_id_lepas').val(fid);
                 })
 
 

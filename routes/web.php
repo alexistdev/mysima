@@ -56,6 +56,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::post('/admin/kelas', [KelasAdmin::class, 'store'])->name('adm.kelas.save');
         Route::get('/admin/{id}/kelas', [KelasAdmin::class, 'detail'])->name('adm.kelas.detail');
         Route::post('/admin/{id}/kelas', [KelasAdmin::class, 'tambah_data_siswa'])->name('adm.kelas.tambah_siswa');
+        Route::delete('/admin/{id}/kelas', [KelasAdmin::class, 'lepas_data_siswa'])->name('adm.kelas.lepas_siswa');
 
         /** ajax */
         Route::get('/admin/ajax/matkul', [UserAdmin::class, 'getDataMatkul'])->name('ajax.datamatkul');

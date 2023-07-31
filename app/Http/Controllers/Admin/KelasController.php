@@ -88,9 +88,24 @@ class KelasController extends Controller
         $user = User::findOrFail(base64_decode($request->user_id));
         DB::beginTransaction();
         try {
-            $this->kelasService->add_siswa($user->id,base64_decode($idKelas));
+            $this->kelasService->update_siswa($user->id,base64_decode($idKelas),1);
             DB::commit();
             return redirect(route('adm.kelas.detail',$idKelas))->with(['success' => "Data Siswa Berhasil ditambahkan!"]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect(route('adm.kelas.detail',$idKelas))->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function lepas_data_siswa(TambahSiswaNonKelasRequest $request,$idKelas)
+    {
+        $request->validated();
+        $user = User::findOrFail(base64_decode($request->user_id));
+        DB::beginTransaction();
+        try {
+            $this->kelasService->update_siswa($user->id,base64_decode($idKelas),2);
+            DB::commit();
+            return redirect(route('adm.kelas.detail',$idKelas))->with(['hapus' => "Data Siswa Berhasil diperbaharui!"]);
         } catch (Exception $e) {
             DB::rollback();
             return redirect(route('adm.kelas.detail',$idKelas))->withErrors(['error' => $e->getMessage()]);
