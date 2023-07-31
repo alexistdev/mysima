@@ -10,6 +10,8 @@ use App\Service\Admin\MahasiswaService;
 use App\Service\Admin\MahasiswaServiceImplementation;
 use App\Service\Admin\MapelService;
 use App\Service\Admin\MapelServiceServiceImplementation;
+use App\Service\Dosen\NilaiServiceDosen;
+use App\Service\Dosen\NilaiServiceDosenImp;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
         DosenService::class => DosenServiceImplementation::class,
         MahasiswaService::class => MahasiswaServiceImplementation::class,
         KelasService::class => KelasServiceImplementation::class,
+        NilaiServiceDosen::class => NilaiServiceDosenImp::class,
     ];
 
     public function register(): void
