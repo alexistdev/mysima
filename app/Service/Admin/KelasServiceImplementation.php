@@ -15,11 +15,18 @@ class KelasServiceImplementation implements KelasService
 {
     public function index(Request $request)
     {
-        $kelas = Kelas::orderBy('id','DESC')->get();
+        $kelas = Kelas::with('hasSiswaCount')->orderBy('id','DESC')->get();
         return DataTables::of($kelas)
             ->addIndexColumn()
             ->editColumn('created_at', function ($request) {
                 return $request->created_at->format('d-m-Y H:i:s');
+            })
+            ->editColumn('jumlah_siswa', function ($request) {
+                $count = 0;
+                if($request->hasSiswaCount != null){
+                    $count = $request->hasSiswaCount->count();
+                }
+                return $count;
             })
             ->addColumn('action', function ($row) {
                 $url = route('adm.kelas.detail', base64_encode($row->id));

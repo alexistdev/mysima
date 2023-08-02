@@ -40,6 +40,7 @@
                                     <tr>
                                         <th scope="col" class="text-center">#</th>
                                         <th scope="col" class="text-center">NAMA</th>
+                                        <th scope="col" class="text-center">JUMLAH SISWA</th>
                                         <th scope="col" class="text-center">DIBUAT</th>
                                         <th scope="col" class="text-center">ACTION</th>
                                     </tr>
@@ -257,6 +258,7 @@
                             }
                         },
                         {data: 'name', class: 'text-center'},
+                        {data: 'jumlah_siswa', class: 'text-center'},
                         {data: 'created_at', class: 'text-center'},
                         {data: 'action', class: 'text-center', orderable: false},
                     ],

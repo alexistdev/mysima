@@ -10,4 +10,8 @@ class Kelas extends Model
     use HasFactory;
 
     protected $fillable = ['name','isActive'];
+
+    public function hasSiswaCount(){
+        return $this->hasMany(Mahasiswa::class,'kelas_id','id');
+    }
 }
