@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dosen;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kelas;
+use App\Models\Mahasiswa;
 use App\Models\usermatkul;
 use App\Service\Dosen\NilaiServiceDosen;
 use Illuminate\Http\Request;
@@ -30,6 +31,7 @@ class InputNilaiController extends Controller
         if($request->get('mapel') && $request->get('kelas')){
             $data = $this->nilaiServiceDosen->index($request);
         }
+//        return $data;
         return view('dosen.nilai', array(
             'judul' => "Dashboard Administrator | MySima",
             'menuUtama' => 'inputNilai',

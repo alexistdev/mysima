@@ -81,12 +81,12 @@
                                     @foreach($dataTabel as $row)
                                         <tr>
                                             <td class="text-center">{{$no++}}</td>
-                                            <td class="text-start">{{$row->matkul->name}}</td>
-                                            <td class="text-start">Mahasiswa</td>
-                                            <td class="text-center">70</td>
-                                            <td class="text-center">0</td>
-                                            <td class="text-center">0</td>
-                                            <td class="text-center">E</td>
+                                            <td class="text-start">{{$row->maha->mahasiswa->nim ?? ""}}</td>
+                                            <td class="text-start">{{$row->maha->name ?? ""}}</td>
+                                            <td class="text-center">{{$row->uts ?? 0}}</td>
+                                            <td class="text-center">{{$row->uas ?? 0}}</td>
+                                            <td class="text-center">{{$row->presensi ?? 0}}</td>
+                                            <td class="text-center">{{$row->total ?? 0}}</td>
                                             <td class="text-center"><button class="btn btn-sm btn-primary">INPUT NILAI</button></td>
                                         </tr>
                                     @endforeach
