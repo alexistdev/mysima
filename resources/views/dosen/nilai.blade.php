@@ -87,7 +87,14 @@
                                             <td class="text-center">{{$row->uas ?? 0}}</td>
                                             <td class="text-center">{{$row->presensi ?? 0}}</td>
                                             <td class="text-center">{{$row->total ?? 0}}</td>
-                                            <td class="text-center"><button class="btn btn-sm btn-primary">INPUT NILAI</button></td>
+                                            <td class="text-center"><button class="btn btn-sm btn-primary open-nilai" data-id="{{base64_encode($row->id)}}"
+                                                                            data-uts="{{$row->uts ?? 0}}"
+                                                                            data-uas="{{$row->uas ?? 0}}"
+                                                                            data-presensi="{{$row->presensi ?? 0}}"
+                                                                            data-name="{{$row->maha->name ?? ""}}"
+                                                                            data-kelas="{{base64_encode($row->maha->mahasiswa->kelas_id) ?? ""}}"
+                                                                            data-mapel="{{base64_encode($row->matakuliah_id) ?? ""}}"
+                                                                            data-bs-toggle="modal" data-bs-target="#modalNilai">INPUT NILAI</button></td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -101,6 +108,87 @@
         <!-- end: page -->
     </section>
 
+        <!-- START : Modal HAPUS -->
+        <div class="modal fade" id="modalNilai" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Simpan Nilai <span id="nama_mahasiswa" class="text-primary font-weight-bold"></span></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{route('dosen.nilai.save')}}" method="post">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <input type="hidden" id="usermatkul_id" class="form-control" name="usermatkul_id" value="{{old('usermatkul_id')}}">
+                                    <input type="hidden" id="mapel_id" class="form-control" name="mapel_id" value="{{old('mapel_id')}}">
+                                    <input type="hidden" id="kelas_id" class="form-control" name="kelas_id" value="{{old('kelas_id')}}">
+                                </div>
+                            </div>
+                            <!-- Start: UTS -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="nilai_uts"
+                                        @class(["form-label","errorLabel",($errors->has('nilai_uts'))? "text-danger":""]) >NILAI UTS
+                                    </label>
+                                    <input type="number" name="nilai_uts"
+                                           @class(["form-control","errorInput",($errors->has('nilai_uts'))? "is-invalid":""]) value="{{old('nilai_uts')}}"
+                                           id="nilai_uts" placeholder="0">
+                                    @error('nilai_uts')
+                                    <span
+                                        class="text-danger errorMessage">{{$errors->first('nilai_uts')}}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <!-- END: UTS -->
+
+                            <!-- Start: UAS -->
+                            <div class="row mt-2">
+                                <div class="col-md-12">
+                                    <label for="nilai_uas"
+                                        @class(["form-label","errorLabel",($errors->has('nilai_uas'))? "text-danger":""]) >NILAI UAS
+                                    </label>
+                                    <input type="number" name="nilai_uas"
+                                           @class(["form-control","errorInput",($errors->has('nilai_uas'))? "is-invalid":""]) value="{{old('nilai_uas')}}"
+                                           id="nilai_uas" placeholder="0">
+                                    @error('nilai_uas')
+                                    <span
+                                        class="text-danger errorMessage">{{$errors->first('nilai_uas')}}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <!-- END: UAS -->
+
+                            <!-- Start: PRESENSI -->
+                            <div class="row mt-2">
+                                <div class="col-md-12">
+                                    <label for="nilai_presensi"
+                                        @class(["form-label","errorLabel",($errors->has('nilai_presensi'))? "text-danger":""]) >NILAI PRESENSI
+                                    </label>
+                                    <input type="number" name="nilai_presensi"
+                                           @class(["form-control","errorInput",($errors->has('nilai_presensi'))? "is-invalid":""]) value="{{old('nilai_presensi')}}"
+                                           id="nilai_presensi" placeholder="0">
+                                    @error('nilai_presensi')
+                                    <span
+                                        class="text-danger errorMessage">{{$errors->first('nilai_presensi')}}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <!-- END: PRESENSI -->
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-success">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- END : Modal HAPUS -->
+
 
 
     @push('customJS')
@@ -109,27 +197,25 @@
         <x-admin.toast-message/>
         <script>
             $(document).ready(function () {
-                let base_url = "{{route('adm.mapel')}}";
-
-
-                /** saat tombol edit di klik */
-                $(document).on("click", ".open-edit", function (e) {
+                /** saat tombol tambah nilai di klik */
+                $(document).on("click", ".open-nilai", function (e) {
                     e.preventDefault();
                     let fid = $(this).data('id');
-                    let fsks = $(this).data('sks');
-                    let fcode = $(this).data('code');
-                    let fname = $(this).data('name');
-                    $('#mapel_id').val(fid);
-                    $('#codeEdit').val(fcode);
-                    $('#nameEdit').val(fname);
-                    $('#sksEdit').val(fsks);
-                })
+                    let fuas = $(this).data('uas');
+                    let futs = $(this).data('uts');
+                    let fpresensi = $(this).data('presensi');
+                    let fmapel = $(this).data('mapel');
 
-                /** saat tombol hapus di klik */
-                $(document).on("click", ".open-hapus", function (e) {
-                    e.preventDefault();
-                    let fid = $(this).data('id');
-                    $('#mapelhapus_id').val(fid);
+                    let fnama = $(this).data('name');
+                    let fkelas = $(this).data('kelas');
+                    $('#nilai_uts').val(futs);
+                    $('#nama_mahasiswa').html(fnama);
+                    $('#nilai_uas').val(fuas);
+                    $('#nilai_presensi').val(fuas);
+                    $('#nilai_presensi').val(fpresensi);
+                    $('#usermatkul_id').val(fid);
+                    $('#mapel_id').val(fmapel);
+                    $('#kelas_id').val(fkelas);
                 })
 
                 $('.modal').on('hidden.bs.modal', function (e) {
@@ -142,45 +228,6 @@
                     errorLabel.removeClass('text-danger');
                 })
                 $('#tabelMahasiswa').DataTable();
-                {{--function tabelMahasiswa(kelas_id){--}}
-                {{--    --}}{{--let mapel_id = '{{}}'--}}
-                {{--    $('#tabelMahasiswa').DataTable({--}}
-                {{--        responsive: true,--}}
-                {{--        processing: true,--}}
-                {{--        serverSide: true,--}}
-                {{--        ajax: {--}}
-                {{--            type: 'GET',--}}
-                {{--            url: base_url,--}}
-                {{--            async: true,--}}
-                {{--            data: {--}}
-                {{--                'kelas_id' : kelas_id,--}}
-                {{--                'mapel_id' : mapel_id,--}}
-                {{--            }--}}
-                {{--        },--}}
-                {{--        language: {--}}
-                {{--            processing: "Loading",--}}
-                {{--        },--}}
-                {{--        columns: [--}}
-                {{--            {--}}
-                {{--                data: 'index',--}}
-                {{--                class: 'text-center',--}}
-                {{--                defaultContent: '',--}}
-                {{--                orderable: false,--}}
-                {{--                searchable: false,--}}
-                {{--                width: '5%',--}}
-                {{--                render: function (data, type, row, meta) {--}}
-                {{--                    return meta.row + meta.settings._iDisplayStart + 1; //auto increment--}}
-                {{--                }--}}
-                {{--            },--}}
-                {{--            {data: 'code', class: 'text-center'},--}}
-                {{--            {data: 'name', class: 'text-left'},--}}
-                {{--            {data: 'sks', class: 'text-center', orderable: false},--}}
-                {{--            {data: 'action', class: 'text-center', orderable: false},--}}
-                {{--        ],--}}
-                {{--        "bDestroy": true--}}
-                {{--    });--}}
-                {{--}--}}
-
             });
         </script>
     @endpush

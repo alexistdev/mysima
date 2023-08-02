@@ -68,6 +68,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     Route::group(['roles' => 'dosen'], function () {
         Route::get('/staff/dashboard', [DashDosen::class, 'index'])->name('dosen.dashboard');
         Route::get('/staff/nilai', [NilaiDosen::class, 'index'])->name('dosen.nilai');
+        Route::post('/staff/nilai', [NilaiDosen::class, 'store'])->name('dosen.nilai.save');
     });
 });
 
