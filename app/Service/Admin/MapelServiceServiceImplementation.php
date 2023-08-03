@@ -19,8 +19,8 @@ class MapelServiceServiceImplementation implements MapelService
                     return $request->created_at->format('d-m-Y H:i:s');
                 })
                 ->addColumn('action', function ($row) {
-                    $btn = "<button class=\"btn btn-sm btn-primary ml-1 open-edit\" data-id=\"$row->id\" data-sks=\"$row->sks\" data-name=\"$row->name\" data-code=\"$row->code\" data-bs-toggle=\"modal\" data-bs-target=\"#modalEdit\"> Edit</button>";
-                    $btn = $btn . "<button class=\"btn btn-sm btn-danger ml-1 open-hapus\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> Hapus</button>";
+                    $btn = "<button class=\"btn btn-sm btn-primary m-1 open-edit\" data-id=\"$row->id\" data-sks=\"$row->sks\" data-name=\"$row->name\" data-code=\"$row->code\" data-bs-toggle=\"modal\" data-bs-target=\"#modalEdit\"> Edit</button>";
+                    $btn = $btn . "<button class=\"btn btn-sm btn-danger m-1 open-hapus\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> Hapus</button>";
                     return $btn;
                 })
                 ->rawColumns(['action'])
