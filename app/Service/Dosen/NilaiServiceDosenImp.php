@@ -13,9 +13,10 @@ class NilaiServiceDosenImp implements NilaiServiceDosen
     {
         $dataAll = usermatkul::with('matkul','maha')->where('matakuliah_id',base64_decode(urldecode($request->mapel)))->get();
         $filter = $dataAll->where('maha.mahasiswa.kelas_id',base64_decode(urldecode($request->kelas)));
-        return $filter->where(function ($item){
-            return $item->maha->role_id  == "3";
-        });
+//        return $filter->where(function ($item){
+//            return $item->maha->role_id  == "3";
+//        });
+        return $filter;
     }
 
     public function save(InputNilaiRequest $request): void

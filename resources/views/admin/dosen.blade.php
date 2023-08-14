@@ -31,7 +31,7 @@
                             </a>
                         </div>
 
-                        <h2 class="card-title">Data Mahasiswa</h2>
+                        <h2 class="card-title">Data Dosen</h2>
                     </header>
                     <div class="card-body">
                         <div class="row">
