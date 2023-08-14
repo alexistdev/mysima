@@ -102,4 +102,16 @@ class DosenController extends Controller
             return redirect(route('adm.dosen'))->withErrors(['error' => $e->getMessage()]);
         }
     }
+
+    public function detail($id)
+    {
+        $user = User::with('dosen')->where('role_id', '2')->findOrFail(base64_decode($id));
+        return view('admin.detaildosen', array(
+            'judul' => "Dashboard Administrator | MySima",
+            'menuUtama' => 'master',
+            'menuKedua' => 'dosen',
+            'dataDosen' => $user,
+            'idUser' => $id,
+        ));
+    }
 }
