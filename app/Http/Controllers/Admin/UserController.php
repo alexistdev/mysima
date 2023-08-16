@@ -33,6 +33,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
+//        return $user = User::with('mahasiswa')->where('role_id', "3")->get();
         if ($request->ajax()) {
             return $this->mahasiswaService->index($request);
         }
