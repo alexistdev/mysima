@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DosenRequest;
+use App\Http\Requests\Admin\SKSRequest;
 use App\Models\Dosen;
 use App\Models\User;
 use App\Service\Admin\DosenService;
@@ -113,5 +114,20 @@ class DosenController extends Controller
             'dataDosen' => $user,
             'idUser' => $id,
         ));
+    }
+
+    public function matkul_add($id,SKSRequest $request)
+    {
+        $request->validated();
+        $user = User::with('mahasiswa')->where('role_id', '2')->findOrFail(base64_decode($id));
+        DB::beginTransaction();
+        try {
+            $this->dosenService->addSKS($request,$user);
+            DB::commit();
+            return redirect(route('adm.dosen.detail', $id))->with(['success' => "SKS berhasil ditambahkan!"]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect(route('adm.dosen'))->withErrors(['error' => $e->getMessage()]);
+        }
     }
 }

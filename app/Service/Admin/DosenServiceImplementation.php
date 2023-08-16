@@ -4,8 +4,10 @@ namespace App\Service\Admin;
 
 use App\Http\Requests\Admin\DosenRequest;
 use App\Http\Requests\Admin\MapelRequest;
+use App\Http\Requests\Admin\SKSRequest;
 use App\Models\Dosen;
 use App\Models\User;
+use App\Models\usermatkul;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -24,8 +26,10 @@ class DosenServiceImplementation implements DosenService
             })
             ->addColumn('action', function ($row) {
                 $url = route('adm.dosen.edit', $row->id);
-                $btn = "<a href=\"$url\"><button class=\"btn btn-sm btn-primary ml-1\" > Edit</button></a>";
-                $btn = $btn . "<button class=\"btn btn-sm btn-danger ml-1 open-hapus\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> Hapus</button>";
+                $detail = route('adm.dosen.detail', base64_encode($row->id));
+                $btn = "<a href=\"$detail\"><button class=\"btn btn-sm btn-primary m-1\" > View</button></a>";
+                $btn = $btn. "<a href=\"$url\"><button class=\"btn btn-sm btn-success m-1\" > Edit</button></a>";
+                $btn = $btn . "<button class=\"btn btn-sm btn-danger m-1 open-hapus\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> Hapus</button>";
                 return $btn;
             })
             ->rawColumns(['action'])
@@ -70,6 +74,14 @@ class DosenServiceImplementation implements DosenService
     public function delete(DosenRequest $request): void
     {
         User::where('id',$request->user_id)->delete();
+    }
+
+    public function addSKS(SKSRequest $request, $user): void
+    {
+        $sks = new usermatkul();
+        $sks->user_id = $user->id;
+        $sks->matakuliah_id = $request->matakuliah_id;
+        $sks->save();
     }
 
 

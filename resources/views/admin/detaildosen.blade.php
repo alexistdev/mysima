@@ -43,9 +43,9 @@
 
                                     </tr>
                                     <tr>
-                                        <th scope="row" style="width: 20%">NPM</th>
+                                        <th scope="row" style="width: 20%">NIK</th>
                                         <td style="width: 5%">:</td>
-                                        <td>{{$dataDosen->mahasiswa->nim ?? "-"}}</td>
+                                        <td>{{$dataDosen->dosen->nik ?? "-"}}</td>
 
                                     </tr>
                                     <tr>
@@ -63,13 +63,13 @@
                                     <tr>
                                         <th scope="row" style="width: 20%">Phone</th>
                                         <td style="width: 5%">:</td>
-                                        <td>{{$dataMahasiswa->mahasiswa->phone ?? "-"}}</td>
+                                        <td>{{$dataDosen->mahasiswa->phone ?? "-"}}</td>
 
                                     </tr>
                                     <tr>
                                         <th scope="row" style="width: 20%">Alamat</th>
                                         <td style="width: 5%">:</td>
-                                        <td>{{$dataMahasiswa->mahasiswa->alamat ?? "-"}}</td>
+                                        <td>{{$dataDosen->mahasiswa->alamat ?? "-"}}</td>
 
                                     </tr>
 
@@ -101,10 +101,6 @@
                                         <th>KODE</th>
                                         <th>NAME</th>
                                         <th>SKS</th>
-                                        <th>NILAI UTS</th>
-                                        <th>NILAI UAS</th>
-                                        <th>PRESENSI</th>
-                                        <th>TOTAL</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -151,7 +147,7 @@
         <!-- START : Modal Add -->
         <div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <form action="{{route('adm.mahasiswa.matkul.add',$idUser)}}" method="post">
+                <form action="{{route('adm.dosen.matkul.add',$idUser)}}" method="post">
                     @csrf
                 <div class="modal-content">
                     <div class="modal-header">
@@ -184,7 +180,7 @@
             $(document).ready(function () {
                 let base_url = "{{route('ajax.datamatkul')}}";
                 let url_sks = "{{route('ajax.sks')}}";
-                let user_id = "{{$dataMahasiswa->id}}"
+                let user_id = "{{$dataDosen->id}}"
                 $('#tabel1').DataTable({
                     responsive: true,
                     processing: true,
@@ -250,10 +246,6 @@
                         {data: 'matkul.code', class: 'text-center'},
                         {data: 'matkul.name', class: 'text-center'},
                         {data: 'matkul.sks', class: 'text-center'},
-                        {data: 'uts', class: 'text-center'},
-                        {data: 'uas', class: 'text-center'},
-                        {data: 'presensi', class: 'text-center'},
-                        {data: 'total', class: 'text-center'},
                         // {data: 'action', class: 'text-center', orderable: false},
                     ],
                     "bDestroy": true
