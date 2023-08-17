@@ -57,7 +57,7 @@
                                         <div class="summary">
                                             <h4 class="title">Total Siswa</h4>
                                             <div class="info">
-                                                <strong class="amount">2</strong>
+                                                <strong class="amount">{{$totalSiswa}}</strong>
                                             </div>
                                         </div>
                                         <div class="summary-footer">
