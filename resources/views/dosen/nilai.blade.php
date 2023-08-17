@@ -74,6 +74,7 @@
                                         <th scope="col" class="text-center">PRESENSI</th>
                                         <th scope="col" class="text-center">TOTAL</th>
                                         <th scope="col" class="text-center">NILAI</th>
+                                        <th scope="col" class="text-center">STATUS</th>
                                         <th scope="col" class="text-center">ACTION</th>
                                     </tr>
                                     </thead>
@@ -89,6 +90,7 @@
                                             <td class="text-center">{{$row->presensi ?? 0}}</td>
                                             <td class="text-center">{{$row->total ?? 0}}</td>
                                             <td class="text-center">{{$row->nilai ?? ""}}</td>
+                                            <td class="text-center">{{(($row->islulus ?? 0) != 0)? "Lulus": "-"}}</td>
                                             <td class="text-center"><button class="btn btn-sm btn-primary open-nilai" data-id="{{base64_encode($row->id)}}"
                                                                             data-uts="{{$row->uts ?? 0}}"
                                                                             data-uas="{{$row->uas ?? 0}}"

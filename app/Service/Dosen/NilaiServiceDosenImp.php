@@ -35,8 +35,18 @@ class NilaiServiceDosenImp implements NilaiServiceDosen
         $presensi = $dataUser->presensi;
         $nilai = $this->cekNilai($total, $uts, $uas, $presensi);
         usermatkul::where('id', base64_decode($request->usermatkul_id))->update([
-            'nilai' => $nilai
+            'nilai' => $nilai,
+            'islulus' => $this->isLulus($nilai)
         ]);
+    }
+
+    private function isLulus(string $nilai):int
+    {
+        $isLulus = 0;
+        if(in_array($nilai,["A","B","C"])){
+            $isLulus = 1;
+        }
+        return $isLulus;
     }
 
     private function cekNilai($total, $uts, $uas, $presensi): string
