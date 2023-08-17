@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('uas')->default(0);
             $table->integer('presensi')->default(0);
             $table->integer('total')->default(0);
+            $table->string('nilai')->nullable(true);
             $table->timestamps();
         });
     }

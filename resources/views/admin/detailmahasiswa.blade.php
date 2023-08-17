@@ -105,6 +105,7 @@
                                         <th>NILAI UAS</th>
                                         <th>PRESENSI</th>
                                         <th>TOTAL</th>
+                                        <th>NILAI</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -254,6 +255,7 @@
                         {data: 'uas', class: 'text-center'},
                         {data: 'presensi', class: 'text-center'},
                         {data: 'total', class: 'text-center'},
+                        {data: 'nilai', class: 'text-center'},
                         // {data: 'action', class: 'text-center', orderable: false},
                     ],
                     "bDestroy": true
