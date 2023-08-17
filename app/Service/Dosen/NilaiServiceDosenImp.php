@@ -23,12 +23,13 @@ class NilaiServiceDosenImp implements NilaiServiceDosen
     {
         $total = ((int)$request->nilai_uts * 0.3) + ((int)$request->nilai_uas * 0.3) + ((int)$request->nilai_presensi * 0.1) + 30;
 
-        $dataUser = usermatkul::where('id', base64_decode($request->usermatkul_id))->update([
+        usermatkul::where('id', base64_decode($request->usermatkul_id))->update([
             'uts' => $request->nilai_uts,
             'uas' => $request->nilai_uas,
             'presensi' => $request->nilai_presensi,
             'total' => $total,
         ]);
+        $dataUser = usermatkul::where('id', base64_decode($request->usermatkul_id))->first();
         $uts = $dataUser->uts;
         $uas = $dataUser->uas;
         $presensi = $dataUser->presensi;
