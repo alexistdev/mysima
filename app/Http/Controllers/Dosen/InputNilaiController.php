@@ -33,7 +33,6 @@ class InputNilaiController extends Controller
         if($request->get('mapel') && $request->get('kelas')){
             $data = $this->nilaiServiceDosen->index($request);
         }
-
         return view('dosen.nilai', array(
             'judul' => "Dashboard Administrator | MySima",
             'menuUtama' => 'inputNilai',

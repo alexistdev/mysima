@@ -32,7 +32,7 @@
                                         <select name="mapel" class="form-select" id="mapel" required>
                                             <option value="">Pilih Mata Kuliah</option>
                                             @foreach($dataMatakuliah as $row)
-                                                <option value="{{base64_encode($row->id)}}" @if($opsiMapel == base64_encode($row->id)) selected @endif>{{$row->matkul->name}}</option>
+                                                <option value="{{base64_encode($row->matkul->id)}}" @if($opsiMapel == base64_encode($row->matkul->id)) selected @endif>{{$row->matkul->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
