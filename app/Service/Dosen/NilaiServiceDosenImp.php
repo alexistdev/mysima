@@ -43,25 +43,33 @@ class NilaiServiceDosenImp implements NilaiServiceDosen
     {
         $str = "E";
         if ($total > 79) {
-            if ($uts != 0 && $uas != 0 && $presensi) {
+            if($this->isValid($uts, $uas, $presensi)){
                 $str = "A";
             }
         } else if ($total > 69 && $total <= 79) {
-            if ($uts != 0 && $uas != 0 && $presensi) {
+            if($this->isValid($uts, $uas, $presensi)) {
                 $str = "B";
             }
         } else if ($total > 69 && $total <= 79) {
-            if ($uts != 0 && $uas != 0 && $presensi) {
+            if($this->isValid($uts, $uas, $presensi)){
                 $str = "C";
             }
         } else if ($total > 59 && $total <= 69) {
-            if ($uts != 0 && $uas != 0 && $presensi) {
+            if($this->isValid($uts, $uas, $presensi)) {
                 $str = "D";
             }
         } else {
             return $str;
         }
         return $str;
+    }
+
+    private function isValid($uts, $uas, $presensi): bool
+    {
+        if ($uts != 0 && $uas != 0 && $presensi) {
+            return true;
+        }
+        return false;
     }
 
 
