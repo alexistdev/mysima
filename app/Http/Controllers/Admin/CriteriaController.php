@@ -22,12 +22,6 @@ class CriteriaController extends Controller
                 ->editColumn('created_at', function ($request) {
                     return $request->created_at->format('d-m-Y H:i:s');
                 })
-                ->addColumn('action', function ($row) {
-                    $btn = "<button class=\"btn btn-sm btn-primary ml-1 open-edit\" data-id=\"$row->id\" data-name=\"$row->name\" data-email=\"$row->email\" data-toggle=\"modal\" data-target=\"#modalEdit\"> Edit</button>";
-                    $btn = $btn . "<button class=\"btn btn-sm btn-danger ml-1 open-hapus\" data-id=\"$row->id\" data-toggle=\"modal\" data-target=\"#modalHapus\"> Hapus</button>";
-                    return $btn;
-                })
-                ->rawColumns(['action'])
                 ->make(true);
         }
         return view('admin.criteria', array(

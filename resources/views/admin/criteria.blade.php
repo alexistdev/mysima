@@ -39,7 +39,6 @@
                                         <th scope="col" class="text-center">#</th>
                                         <th scope="col" class="text-center">PREMIS</th>
                                         <th scope="col" class="text-center">KRITERIA KELULUSAN</th>
-                                        <th scope="col" class="text-center">ACTION</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -85,7 +84,6 @@
                         },
                         {data: 'premis', class: 'text-center'},
                         {data: 'criteria', class: 'text-left'},
-                        {data: 'action', class: 'text-center', orderable: false},
                     ],
                     "bDestroy": true
                 });

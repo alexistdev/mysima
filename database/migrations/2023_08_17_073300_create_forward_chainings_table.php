@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mahasiswas', function (Blueprint $table) {
+        Schema::create('forward_chainings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')
-                ->constrained('users')
+            $table->foreignId('mahasiswa_id')
+                ->constrained('mahasiswas')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('nim');
-            $table->string('phone')->nullable();
-            $table->string('alamat')->nullable();
+            $table->tinyInteger('isSKSLulus')->default(0);
             $table->tinyInteger('isBayar')->default(0);
             $table->timestamps();
         });
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mahasiswas');
+        Schema::dropIfExists('forward_chainings');
     }
 };

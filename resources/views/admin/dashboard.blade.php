@@ -49,7 +49,7 @@
                                                 <td class="text-start">{{$row->mahasiswa->nim}}</td>
                                                 <td class="text-start">{{$row->name}}</td>
                                                 <td class="text-start">{{$row->email}}</td>
-                                                <td class="text-center"><a href="{{route('adm.mahasiswa')}}"><button class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></button></a></td>
+                                                <td class="text-center"><a href="{{route('adm.mahasiswa.detail',base64_encode($row->id))}}"><button class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></button></a></td>
                                             </tr>
                                         @endforeach
 
