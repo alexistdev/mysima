@@ -21,5 +21,9 @@ class usermatkul extends Model
         return $this->belongsTo(MataKuliah::class,'matakuliah_id','id');
     }
 
+    public function countsks(){
+        return $this->belongsTo(MataKuliah::class,'matakuliah_id','id')->sum('sks');
+    }
+
 
 }

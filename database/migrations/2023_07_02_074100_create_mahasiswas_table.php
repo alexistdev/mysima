@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('alamat')->nullable();
             $table->tinyInteger('isBayar')->default(0);
+            $table->tinyInteger('isSkripsi')->default(0);
             $table->timestamps();
         });
     }

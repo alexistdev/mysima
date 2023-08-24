@@ -1,4 +1,8 @@
 <x-admin.template-admin :title="$judul" :menu-utama="$menuUtama" :menu-kedua="$menuKedua">
+    @push('cssCustom')
+        <link rel="stylesheet" href="{{asset('template/vendor/datatables/media/css/dataTables.bootstrap5.css')}}"/>
+        <link rel="stylesheet" href="{{asset('template/vendor/pnotify/pnotify.custom.css')}}"/>
+    @endpush
     <section role="main" class="content-body">
         <header class="page-header page-header-left-breadcrumb">
             <div class="right-wrapper">
@@ -33,7 +37,7 @@
                                         <div class="summary">
                                             <h4 class="title">Hasil Analisis (Forward Chaining)</h4>
                                             <div class="info">
-                                                <strong class="amount">1</strong>
+                                                <strong class="amount">{{$dataForward->count()}}</strong>
                                             </div>
                                         </div>
                                         <div class="summary-footer">
@@ -76,23 +80,25 @@
             <div class="col-lg-12 mb-3">
                 <section class="card">
                     <div class="card-header">
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <select name="" id="" class="form-control col-lg-3">
-                                    <option value="">==PILIH==</option>
-                                    <option value="">SKRIPSI</option>
-                                </select>
+                        <form action="{{route('dosen.dashboard.filter')}}" method="post">
+                            @csrf
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <select name="skripsi" id="skripsi" class="form-control col-lg-3" >
+                                        <option value="">==PILIH==</option>
+                                        <option value="1">SKRIPSI</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3">
+                                    <button type="submit" class="btn btn-primary">FILTER</button>
+                                </div>
                             </div>
-                            <div class="col-lg-3">
-                                <button class="btn btn-primary">FILTER</button>
-                            </div>
-                        </div>
-
+                        </form>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-xl-12">
-                                <table id="tabel12" class="table table-bordered table-striped mb-0" style="width: 100%">
+                                <table id="tabelFW" class="table table-bordered table-striped mb-0" style="width: 100%">
                                     <thead>
                                     <tr>
                                         <th scope="col" class="text-center">#</th>
@@ -103,13 +109,18 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td class="text-center">1</td>
-                                        <td class="text-start">182222</td>
-                                        <td class="text-start">udin</td>
-                                        <td class="text-center">121</td>
-                                        <td class="text-center">YES</td>
-                                    </tr>
+                                    @php
+                                        $no=1;
+                                    @endphp
+                                    @foreach($dataForward as $row)
+                                        <tr>
+                                            <td class="text-center">{{$no++}}</td>
+                                            <td class="text-start">{{$row->mahasiswa->nim ?? "-"}}</td>
+                                            <td class="text-start">{{$row->mahasiswa->user->name ?? "-"}}</td>
+                                            <td class="text-center">{{$row->jumlahsks}}</td>
+                                            <td class="text-center">YES</td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -119,4 +130,14 @@
             </div>
         </div>
     </section>
+    @push('customJS')
+        <!-- Specific Page Vendor -->
+        <script src="{{asset('template/vendor/pnotify/pnotify.custom.js')}}"></script>
+        <x-admin.toast-message/>
+            <script>
+                $(document).ready(function () {
+                    $('#tabelFW').DataTable();
+                });
+            </script>
+    @endpush
 </x-admin.template-admin>

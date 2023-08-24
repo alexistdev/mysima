@@ -19,6 +19,9 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->tinyInteger('isSKSLulus')->default(0);
             $table->tinyInteger('isBayar')->default(0);
+            $table->tinyInteger('isPkpm')->default(0);
+            $table->tinyInteger('isMetopel')->default(0);
+            $table->integer('jumlahsks')->default(0);
             $table->timestamps();
         });
     }

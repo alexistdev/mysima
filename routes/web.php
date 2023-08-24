@@ -31,6 +31,9 @@ Route::middleware('auth')->group(function () {
 Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     Route::group(['roles' => 'admin'], function () {
         Route::get('/admin/dashboard', [DashAdmin::class, 'index'])->name('adm.dashboard');
+//        Route::post('/admin/dashboard/filter', [DashAdmin::class, 'filter'])->name('adm.dashboard');
+
+
         Route::get('/admin/mahasiswa', [UserAdmin::class, 'index'])->name('adm.mahasiswa');
         Route::post('/admin/mahasiswa', [UserAdmin::class, 'store'])->name('adm.mahasiswa.save');
         Route::patch('/admin/mahasiswa', [UserAdmin::class, 'update'])->name('adm.mahasiswa.update');
@@ -70,6 +73,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
 
     Route::group(['roles' => 'dosen'], function () {
         Route::get('/staff/dashboard', [DashDosen::class, 'index'])->name('dosen.dashboard');
+        Route::post('/staff/dashboard/filter', [DashDosen::class, 'filter'])->name('dosen.dashboard.filter');
         Route::get('/staff/nilai', [NilaiDosen::class, 'index'])->name('dosen.nilai');
         Route::post('/staff/nilai', [NilaiDosen::class, 'store'])->name('dosen.nilai.save');
     });
