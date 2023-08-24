@@ -2,7 +2,7 @@
 <header class="header">
     <div class="logo-container">
         <a href="{{route('adm.dashboard')}}" class="logo">
-            <img src="{{asset('template/img/logo.png')}}" width="75" height="35" alt="SIMA" />
+            <img src="{{asset('template/img/logo.png')}}" width="200" height="35" alt="SIMA" />
         </a>
         <div class="d-md-none toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
             <i class="fas fa-bars" aria-label="Toggle sidebar"></i>
