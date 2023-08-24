@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DosenRequest;
 use App\Http\Requests\Admin\MahasiswaRequest;
 use App\Http\Requests\Admin\SKSRequest;
+use App\Models\Mahasiswa;
 use App\Models\MataKuliah;
 use App\Models\User;
 use App\Models\usermatkul;
@@ -14,6 +15,7 @@ use App\Service\Admin\MahasiswaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use PhpParser\Builder;
 use Yajra\DataTables\DataTables;
 
@@ -135,5 +137,25 @@ class UserController extends Controller
             return $this->mahasiswaService->dataSKS($request);
         }
         return null;
+    }
+
+    public function isbayar(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'mahasiswa_id'     => 'required|numeric',
+            'status'     => 'required|numeric',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+        $mahasiswa = Mahasiswa::where('id',$request->mahasiswa_id)->update([
+            'isBayar' => $request->status,
+        ]);
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Berhasil Disimpan!',
+            'data'    => $request->status
+        ]);
+
     }
 }

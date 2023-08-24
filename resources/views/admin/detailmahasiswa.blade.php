@@ -73,6 +73,15 @@
 
                                     </tr>
 
+                                    <tr>
+                                        <th scope="row" style="width: 20%">Sudah Bayar Administrasi</th>
+                                        <td style="width: 5%">:</td>
+                                        <td><div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="1" id="isBayar" @if($dataMahasiswa->mahasiswa->isBayar != 0) checked @endif>
+                                            </div></td>
+
+                                    </tr>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -185,7 +194,7 @@
             $(document).ready(function () {
                 let base_url = "{{route('ajax.datamatkul')}}";
                 let url_sks = "{{route('ajax.sks')}}";
-                let user_id = "{{$dataMahasiswa->id}}"
+                let user_id = "{{$dataMahasiswa->id}}";
                 $('#tabel1').DataTable({
                     responsive: true,
                     processing: true,
@@ -220,6 +229,44 @@
                     ],
                     "bDestroy": true
                 });
+
+                $('#isBayar').change(function () {
+                    let isBayar = $('#isBayar');
+                        if(isBayar.is(':checked')){
+                            save(1);
+                        } else {
+                            save(0);
+                        }
+                });
+
+                function save(status)
+                {
+                    let urlBayar = '{{route('ajax.isbayar')}}';
+                    let mahasiswaId = "{{$dataMahasiswa->mahasiswa->id}}";
+                    $.ajax({
+                        url : urlBayar,
+                        type : 'POST',
+                        data : {
+                            "_token": "{{ csrf_token() }}",
+                            'mahasiswa_id' : mahasiswaId,
+                            'status' : status,
+                        },
+                        dataType:'json',
+                        success : function(data) {
+                            new PNotify({
+                                title: 'Success',
+                                text: 'status bayar mahasiswa berhasil diperbaharui',
+                                type: 'success',
+                                delay: 1000,
+                                shadow: true
+                            });
+                        },
+                        error : function(request,error)
+                        {
+                            console.log("Request: "+JSON.stringify(request));
+                        }
+                    });
+                }
 
                 $('#tabelSKS').DataTable({
                     responsive: true,
