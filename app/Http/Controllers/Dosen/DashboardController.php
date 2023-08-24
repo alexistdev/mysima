@@ -36,6 +36,9 @@ class DashboardController extends Controller
         ));
     }
 
+    /**
+     * Analasis Forward Chaining
+     */
     public function filter(FilterRequest $request)
     {
         $request->validated();
